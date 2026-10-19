@@ -31,11 +31,22 @@ struct Ev { double t; int note; bool on; };
 static std::vector<Ev> phraseFor(const std::string& cat, double& length) {
     std::vector<Ev> ev;
     auto note = [&](double t, double dur, int n) { ev.push_back({ t, n, true }); ev.push_back({ t + dur, n, false }); };
-    if (cat == "Pad" || cat == "Atmos") {
+    if (cat == "Percussion") {  // a small groove across the keyboard
+        const int pat[] = { 36, 42, 38, 42, 36, 36, 38, 42, 45, 42, 38, 47, 36, 42, 38, 50 };
+        for (int i = 0; i < 16; ++i) note(i * 0.25, 0.12, pat[i]);
+        length = 5.5;
+        return ev;
+    }
+    if (cat == "Pulse" || cat == "Drone") {  // long held chord; gates/LFOs provide the motion
+        for (int n : { 45, 52, 57, 60 }) note(0.0, 6.0, n);
+        length = 9.0;
+        return ev;
+    }
+    if (cat == "Pad" || cat == "Atmos" || cat == "Texture" || cat == "Cinematic") {
         for (int n : { 48, 52, 55, 59 }) note(0.0, 4.0, n);
         for (int n : { 53, 57, 60, 64 }) note(4.0, 4.0, n);
         length = 12.0;
-    } else if (cat == "Pluck" || cat == "Mallet" || cat == "Keys") {
+    } else if (cat == "Pluck" || cat == "Mallet" || cat == "Keys" || cat == "World") {
         const int arp[] = { 48, 55, 60, 64, 67, 72, 67, 64, 53, 60, 65, 69, 72, 77, 72, 69 };
         for (int i = 0; i < 16; ++i) note(i * 0.3, 0.27, arp[i]);
         for (int n : { 48, 55, 64, 71 }) note(4.8, 2.5, n);
@@ -86,6 +97,60 @@ int main(int argc, char** argv) {
     const bool tuning = argc > 2 && std::strcmp(argv[2], "--tuning") == 0;
     const int sr = 48000;
 
+    if (argc >= 3 && std::strcmp(argv[2], "--fxtest") == 0) {
+        // Every FX unit x model x knob setting on a test signal: impulse, noise burst, then a sustained chord.
+        // Reports NaN/Inf, peak, output/input RMS and realtime factor; writes one WAV per unit/model (default knobs).
+        const int len = sr * 3;
+        std::vector<float> inL(size_t(len), 0.f), inR(size_t(len), 0.f);
+        Rng rng(7);
+        inL[100] = inR[100] = 0.9f;
+        for (int i = sr / 4; i < sr / 2; ++i) { inL[size_t(i)] = 0.3f * rng.bipolar(); inR[size_t(i)] = 0.3f * rng.bipolar(); }
+        for (int i = sr; i < len - sr / 2; ++i) {
+            const float t = float(i) / float(sr);
+            float s = 0; for (float f : { 110.f, 220.f, 277.2f, 329.6f, 880.f }) s += 0.08f * std::sin(kTwoPi * f * t);
+            inL[size_t(i)] = s; inR[size_t(i)] = s * 0.9f;
+        }
+        double inSq = 0; for (float v : inL) inSq += double(v) * v;
+        const float inRms = float(std::sqrt(inSq / len));
+        FILE* csv = std::fopen((out + "/fxtest.csv").c_str(), "w");
+        if (csv) std::fprintf(csv, "type,unit,model,setting,nonfinite,peak,rms_ratio,realtime_factor\n");
+        int failures = 0;
+        for (int type = 1; type < FX_NumTypes; ++type) {
+            const FxInfo& info = fxInfo(type);
+            for (int model = 0; model < int(info.models.size()); ++model) {
+                for (int setting = 0; setting < 4; ++setting) {
+                    FxSlot slot; slot.prepare(float(sr), 256);
+                    float p[S_NumSlotParams] = { float(type), 1.f, 1.f, float(model) };
+                    Rng kr(uint32_t(type * 131 + model * 17 + setting));
+                    for (int k = 0; k < kFxKnobs; ++k)
+                        p[S_K1 + k] = setting == 0 ? 0.f : setting == 1 ? fxKnob(type, k).defNorm() : setting == 2 ? 1.f : kr.unipolar();
+                    std::vector<float> L = inL, R = inR;
+                    const auto t0 = std::chrono::steady_clock::now();
+                    for (int pos = 0; pos < len; pos += 256) slot.process(&L[size_t(pos)], &R[size_t(pos)], std::min(256, len - pos), p);
+                    const double secs = std::chrono::duration<double>(std::chrono::steady_clock::now() - t0).count();
+                    int nonfinite = 0; float peak = 0; double sq = 0;
+                    for (int i = 0; i < len; ++i) for (float v : { L[size_t(i)], R[size_t(i)] }) {
+                        if (!std::isfinite(v)) ++nonfinite; else { peak = std::max(peak, std::fabs(v)); sq += double(v) * v; }
+                    }
+                    const float ratio = float(std::sqrt(sq / (2.0 * len))) / inRms;
+                    const double rtf = 3.0 / std::max(1e-9, secs);
+                    const char* names[] = { "zeros", "defaults", "maxed", "random" };
+                    const bool bad = nonfinite > 0 || peak > 8.f || rtf < 20.0 || (setting == 1 && ratio < 0.01f);
+                    failures += bad;
+                    std::printf("%-17s %-18s %-8s nonfinite=%d peak=%6.2f rms_ratio=%6.2f rt=%7.0fx%s\n", info.name, info.models[size_t(model)].c_str(),
+                                names[setting], nonfinite, peak, ratio, rtf, bad ? "   <-- CHECK" : "");
+                    if (csv) std::fprintf(csv, "%d,%s,%s,%s,%d,%.3f,%.3f,%.1f\n", type, info.name, info.models[size_t(model)].c_str(), names[setting], nonfinite, peak, ratio, rtf);
+                    if (setting == 1) {
+                        char file[256]; std::snprintf(file, sizeof file, "%s/fx_%02d_%d.wav", out.c_str(), type, model);
+                        writeWav(file, L, R, sr);
+                    }
+                }
+            }
+        }
+        if (csv) std::fclose(csv);
+        std::printf("FX test done, %d settings flagged\n", failures);
+        return failures ? 2 : 0;
+    }
     if (argc >= 8 && std::strcmp(argv[2], "--probe") == 0) {
         // --probe <engine> <note> <timbre> <shape> <char> [vel]: one dry note to <outdir>/probe.wav
         auto s = std::make_unique<Synth>();
@@ -95,7 +160,7 @@ int main(int argc, char** argv) {
         s->setParam(lp(0, L_Shape), float(std::atof(argv[6])));
         s->setParam(lp(0, L_Char), float(std::atof(argv[7])));
         s->setParam(lp(0, L_FiltType), F_Off); s->setParam(lp(0, L_Drift), 0); s->setParam(lp(0, L_AR), 0.05f);
-        s->setParam(gp(G_RevMix), 0); s->setParam(gp(G_Gain), 0);
+        s->setParam(fxp(fxSlot(R_Common, 3), S_Type), float(FX_Off)); s->setParam(gp(G_Gain), 0);
         std::vector<float> L, R;
         const int note = std::atoi(argv[4]);
         renderEvents(*s, { { 0.0, note, true }, { 1.5, note, false } }, 1.8, sr, L, R);
@@ -111,7 +176,7 @@ int main(int argc, char** argv) {
             s->setParam(lp(0, L_Drift), 0); s->setParam(lp(0, L_AR), 0.05f);
             s->setParam(lp(0, L_Char), e == E_Pluck || e == E_Modal ? 0.6f : 0.3f);
             s->setParam(lp(0, L_Shape), e == E_Atmos ? 0.95f : 0.5f);
-            s->setParam(gp(G_RevMix), 0); s->setParam(gp(G_Gain), 0);
+            s->setParam(fxp(fxSlot(R_Common, 3), S_Type), float(FX_Off)); s->setParam(gp(G_Gain), 0);
             std::vector<float> L, R;
             renderEvents(*s, { { 0.0, note, true }, { 1.5, note, false } }, 1.8, sr, L, R);
             char name[256]; std::snprintf(name, sizeof name, "%s/tune_e%d_n%d.wav", out.c_str(), e, note);
@@ -129,6 +194,7 @@ int main(int argc, char** argv) {
         auto s = std::make_unique<Synth>();
         s->prepare(float(sr));
         for (int k = 0; k < kNumParams; ++k) s->setParam(k, p.v[size_t(k)]);
+        s->primeFx(p.v.data());   // build heavy FX state (Innerspace IRs) up front: deterministic renders
         double len = 0;
         auto ev = phraseFor(p.category, len);
         std::vector<float> L, R;

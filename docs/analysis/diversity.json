@@ -1,0 +1,2182 @@
+{
+  "mean_pairwise": 8.029,
+  "coverage": 4.133,
+  "near_duplicates": [
+    [
+      "Ocean Wind",
+      "Whistling Wind",
+      1.978
+    ],
+    [
+      "Breathy Flute",
+      "Shakuhachi",
+      2.095
+    ],
+    [
+      "Ocean Wind",
+      "Rain on Zinc Roof",
+      2.105
+    ],
+    [
+      "Harp of Wire",
+      "Celtic Concert Harp",
+      2.163
+    ],
+    [
+      "Harp of Wire",
+      "Glassy Prism Pluck",
+      2.173
+    ],
+    [
+      "Celtic Concert Harp",
+      "Glassy Prism Pluck",
+      2.302
+    ],
+    [
+      "Glass Cathedral",
+      "Solar Flare Phaser",
+      2.388
+    ],
+    [
+      "Koto Steel",
+      "Celtic Concert Harp",
+      2.669
+    ],
+    [
+      "Whistling Wind",
+      "Rain on Zinc Roof",
+      2.727
+    ],
+    [
+      "Glass Harmonica",
+      "Bowed Crystal Glass",
+      2.736
+    ],
+    [
+      "Koto Steel",
+      "Sitar Buzz",
+      2.782
+    ],
+    [
+      "Metal Pipe Drone",
+      "Bowed Crystal Glass",
+      2.842
+    ],
+    [
+      "Kalimba",
+      "Celtic Concert Harp",
+      2.871
+    ],
+    [
+      "B3 Gospel Spinner",
+      "Highland Bagpipe Drone",
+      2.898
+    ],
+    [
+      "Glass Cathedral",
+      "Bowed Crystal Glass",
+      2.908
+    ],
+    [
+      "Alien Choir",
+      "Solar Flare Phaser",
+      2.939
+    ],
+    [
+      "Bowed Crystal Glass",
+      "Solar Flare Phaser",
+      2.965
+    ],
+    [
+      "Singing Bowl Drone",
+      "Alien Choir",
+      3.019
+    ],
+    [
+      "Operatic Formant Lead",
+      "Vintage Brass Stab",
+      3.022
+    ],
+    [
+      "Sitar Buzz",
+      "Celtic Concert Harp",
+      3.052
+    ],
+    [
+      "Tibetan Bowl",
+      "Bowed Crystal Glass",
+      3.061
+    ],
+    [
+      "Shakuhachi",
+      "Pan Pipes",
+      3.116
+    ],
+    [
+      "Bowed Crystal Glass",
+      "Celestial String Solina",
+      3.155
+    ],
+    [
+      "Alien Choir",
+      "Bowed Crystal Glass",
+      3.162
+    ],
+    [
+      "Analog Dreams",
+      "Celestial String Solina",
+      3.223
+    ],
+    [
+      "Harp of Wire",
+      "Koto Steel",
+      3.232
+    ],
+    [
+      "Sitar Buzz",
+      "Glassy Prism Pluck",
+      3.232
+    ],
+    [
+      "Broken Window Howl",
+      "Glass Harmonica Squall",
+      3.243
+    ],
+    [
+      "Harp of Wire",
+      "Sitar Buzz",
+      3.275
+    ],
+    [
+      "Koto Steel",
+      "Glassy Prism Pluck",
+      3.276
+    ],
+    [
+      "Breathy Flute",
+      "Pan Pipes",
+      3.304
+    ],
+    [
+      "Glass Cathedral",
+      "Glass Harmonica",
+      3.385
+    ],
+    [
+      "Singing Bowl Drone",
+      "Bowed Crystal Glass",
+      3.388
+    ],
+    [
+      "Funky D6 Clav",
+      "Appalachian Banjo",
+      3.406
+    ],
+    [
+      "Glass Harmonica",
+      "Metal Pipe Drone",
+      3.435
+    ],
+    [
+      "Soprano Aah",
+      "Operatic Formant Lead",
+      3.452
+    ],
+    [
+      "Church Bells",
+      "Titan Colossus Impact",
+      3.456
+    ],
+    [
+      "Celestial String Solina",
+      "Tension String Cluster",
+      3.466
+    ],
+    [
+      "Tubular Chimes",
+      "FM Tine Piano",
+      3.48
+    ],
+    [
+      "Galleon Timber Creak",
+      "Pumping Saw Thruster",
+      3.485
+    ],
+    [
+      "Braam of Doom",
+      "Tension String Cluster",
+      3.486
+    ],
+    [
+      "Alien Choir",
+      "Metal Pipe Drone",
+      3.504
+    ],
+    [
+      "Singing Bowl Drone",
+      "Solar Flare Phaser",
+      3.542
+    ],
+    [
+      "Solar Flare Phaser",
+      "Celestial String Solina",
+      3.554
+    ],
+    [
+      "Glass Cathedral",
+      "Fretless Warmth",
+      3.556
+    ],
+    [
+      "Alien Choir",
+      "Vocal Choir Osmosis",
+      3.577
+    ],
+    [
+      "Tubular Chimes",
+      "Hollow Organ",
+      3.579
+    ],
+    [
+      "Orchestral Pizzicato",
+      "Kyoto Silk Koto",
+      3.588
+    ],
+    [
+      "Galleon Timber Creak",
+      "Fretless Warmth",
+      3.591
+    ],
+    [
+      "Granular Swarm",
+      "Solar Flare Phaser",
+      3.592
+    ],
+    [
+      "Analog Dreams",
+      "Galleon Timber Creak",
+      3.596
+    ],
+    [
+      "Kalimba",
+      "Rosewood Xylophone",
+      3.604
+    ],
+    [
+      "Celestial String Solina",
+      "Singing Steel Plate",
+      3.609
+    ],
+    [
+      "Tibetan Bowl",
+      "Metal Pipe Drone",
+      3.614
+    ],
+    [
+      "Sitar Buzz",
+      "Kyoto Silk Koto",
+      3.618
+    ],
+    [
+      "Choir of Ghosts",
+      "Alien Choir",
+      3.62
+    ],
+    [
+      "Kalimba",
+      "Glassy Prism Pluck",
+      3.623
+    ],
+    [
+      "Glass Cathedral",
+      "Crystalline Shimmer Spire",
+      3.628
+    ],
+    [
+      "Bowed Crystal Glass",
+      "Tension String Cluster",
+      3.631
+    ],
+    [
+      "Choir of Ghosts",
+      "Singing Bowl Drone",
+      3.632
+    ],
+    [
+      "Tubular Chimes",
+      "Trinidad Steel Drum",
+      3.656
+    ],
+    [
+      "Singing Bowl Drone",
+      "Metal Pipe Drone",
+      3.665
+    ],
+    [
+      "Braam of Doom",
+      "Pumping Saw Thruster",
+      3.667
+    ],
+    [
+      "Koto Steel",
+      "Kalimba",
+      3.683
+    ],
+    [
+      "Ocean Wind",
+      "Granular Swarm",
+      3.694
+    ],
+    [
+      "Acoustic Double Bass",
+      "Fretless Warmth",
+      3.702
+    ],
+    [
+      "Marimba Hall",
+      "Trinidad Steel Drum",
+      3.717
+    ],
+    [
+      "Plucked Upright",
+      "Acoustic Double Bass",
+      3.731
+    ],
+    [
+      "Koto Steel",
+      "Kyoto Silk Koto",
+      3.734
+    ],
+    [
+      "Pumping Saw Thruster",
+      "Fretless Warmth",
+      3.75
+    ],
+    [
+      "Granular Swarm",
+      "Tension String Cluster",
+      3.753
+    ],
+    [
+      "Alien Choir",
+      "Celestial String Solina",
+      3.765
+    ],
+    [
+      "Glass Cathedral",
+      "Celestial String Solina",
+      3.768
+    ],
+    [
+      "Glass Cathedral",
+      "Alien Choir",
+      3.773
+    ],
+    [
+      "Choir of Ghosts",
+      "Bowed Crystal Glass",
+      3.782
+    ],
+    [
+      "Choir of Ghosts",
+      "Ocean Wind",
+      3.793
+    ],
+    [
+      "Whistling Wind",
+      "Insectoid Swarm",
+      3.795
+    ],
+    [
+      "Glass Harmonica",
+      "Tibetan Bowl",
+      3.796
+    ],
+    [
+      "Ocean Wind",
+      "Distant Factory Drone",
+      3.8
+    ],
+    [
+      "Bowed Crystal Glass",
+      "Singing Steel Plate",
+      3.812
+    ],
+    [
+      "FM Tine Piano",
+      "Hollow Organ",
+      3.814
+    ],
+    [
+      "Distant Factory Drone",
+      "Rain on Zinc Roof",
+      3.814
+    ],
+    [
+      "Choir of Ghosts",
+      "Whistling Wind",
+      3.815
+    ],
+    [
+      "Singing Bowl Drone",
+      "Tibetan Bowl",
+      3.816
+    ],
+    [
+      "FM Tine Piano",
+      "Handpan Meditation",
+      3.827
+    ],
+    [
+      "Bowed Crystal Glass",
+      "Braam of Doom",
+      3.837
+    ],
+    [
+      "Harp of Wire",
+      "Kalimba",
+      3.841
+    ],
+    [
+      "Marimba Hall",
+      "Rosewood Xylophone",
+      3.853
+    ],
+    [
+      "Vocal Choir Osmosis",
+      "Rising Ascension Swell",
+      3.858
+    ],
+    [
+      "Choir of Ghosts",
+      "Solar Flare Phaser",
+      3.895
+    ],
+    [
+      "Monastery Crypt Chant",
+      "Neuro Reese Bass",
+      3.902
+    ],
+    [
+      "Pumping Saw Thruster",
+      "Acoustic Double Bass",
+      3.904
+    ],
+    [
+      "Tibetan Bowl",
+      "Braam of Doom",
+      3.909
+    ],
+    [
+      "Vocal Choir Osmosis",
+      "Celestial String Solina",
+      3.917
+    ],
+    [
+      "Marimba Hall",
+      "Vibraphone",
+      3.919
+    ],
+    [
+      "Tibetan Bowl",
+      "Tension String Cluster",
+      3.934
+    ],
+    [
+      "Solar Flare Phaser",
+      "Fretless Warmth",
+      3.936
+    ],
+    [
+      "Celestial String Solina",
+      "Galleon Timber Creak",
+      3.936
+    ],
+    [
+      "Pumping Saw Thruster",
+      "Tremolo Telecaster Pluck",
+      3.939
+    ],
+    [
+      "Metal Pipe Drone",
+      "Celestial String Solina",
+      3.956
+    ],
+    [
+      "Analog Dreams",
+      "Hyper Saw Supernova",
+      3.961
+    ],
+    [
+      "Church Bells",
+      "Fretless Warmth",
+      3.961
+    ],
+    [
+      "Tubular Chimes",
+      "Handpan Meditation",
+      3.968
+    ],
+    [
+      "Soprano Aah",
+      "Vintage Brass Stab",
+      3.971
+    ],
+    [
+      "Celestial String Solina",
+      "Braam of Doom",
+      3.987
+    ],
+    [
+      "Solar Flare Phaser",
+      "Tension String Cluster",
+      3.994
+    ],
+    [
+      "Metal Pipe Drone",
+      "Crystalline Shimmer Spire",
+      4.004
+    ],
+    [
+      "Solar Flare Phaser",
+      "Braam of Doom",
+      4.007
+    ],
+    [
+      "Insectoid Swarm",
+      "Rain on Zinc Roof",
+      4.008
+    ],
+    [
+      "Glass Cathedral",
+      "Tibetan Bowl",
+      4.013
+    ],
+    [
+      "Metal Pipe Drone",
+      "Tension String Cluster",
+      4.033
+    ],
+    [
+      "Dark Additive Obelisk",
+      "Polar Needle Frost",
+      4.043
+    ],
+    [
+      "Metal Pipe Drone",
+      "Broken Window Howl",
+      4.045
+    ],
+    [
+      "Vocal Choir Osmosis",
+      "Bowed Crystal Glass",
+      4.055
+    ],
+    [
+      "Horror Scrape Agony",
+      "Highland Bagpipe Drone",
+      4.065
+    ],
+    [
+      "Ocean Wind",
+      "Insectoid Swarm",
+      4.066
+    ],
+    [
+      "Nylon Pluck",
+      "Rosewood Xylophone",
+      4.072
+    ],
+    [
+      "Alien Choir",
+      "Rising Ascension Swell",
+      4.079
+    ],
+    [
+      "Hollow Organ",
+      "Handpan Meditation",
+      4.08
+    ],
+    [
+      "Sitar Buzz",
+      "Kalimba",
+      4.093
+    ],
+    [
+      "Bowed Crystal Glass",
+      "Crystalline Shimmer Spire",
+      4.098
+    ],
+    [
+      "Analog Dreams",
+      "Singing Steel Plate",
+      4.108
+    ],
+    [
+      "Tibetan Bowl",
+      "Crystalline Shimmer Spire",
+      4.108
+    ],
+    [
+      "Vocal Choir Osmosis",
+      "Solar Flare Phaser",
+      4.111
+    ],
+    [
+      "Pumping Saw Thruster",
+      "Rotary Pulsar Organ",
+      4.115
+    ],
+    [
+      "Analog Dreams",
+      "Bowed Crystal Glass",
+      4.116
+    ],
+    [
+      "Hollow Organ",
+      "B3 Gospel Spinner",
+      4.117
+    ],
+    [
+      "Glass Cathedral",
+      "Singing Steel Plate",
+      4.119
+    ],
+    [
+      "Glass Harmonica",
+      "Crystalline Shimmer Spire",
+      4.125
+    ],
+    [
+      "Analog Dreams",
+      "Solar Flare Phaser",
+      4.127
+    ],
+    [
+      "Celestial String Solina",
+      "Rising Ascension Swell",
+      4.129
+    ],
+    [
+      "Celtic Concert Harp",
+      "Kyoto Silk Koto",
+      4.129
+    ],
+    [
+      "Granular Swarm",
+      "Stuttering Granular Cascade",
+      4.134
+    ],
+    [
+      "Rain on Zinc Roof",
+      "Tension String Cluster",
+      4.134
+    ],
+    [
+      "Solar Flare Phaser",
+      "Crystalline Shimmer Spire",
+      4.143
+    ],
+    [
+      "Acoustic Double Bass",
+      "Outback Didgeridoo",
+      4.146
+    ],
+    [
+      "Bowed Crystal Glass",
+      "Broken Window Howl",
+      4.147
+    ],
+    [
+      "Metal Pipe Drone",
+      "Solar Flare Phaser",
+      4.163
+    ],
+    [
+      "Tension String Cluster",
+      "Pumping Saw Thruster",
+      4.165
+    ],
+    [
+      "Galleon Timber Creak",
+      "Horror Scrape Agony",
+      4.177
+    ],
+    [
+      "Tibetan Bowl",
+      "Solar Flare Phaser",
+      4.179
+    ],
+    [
+      "Granular Swarm",
+      "Braam of Doom",
+      4.181
+    ],
+    [
+      "Solar Flare Phaser",
+      "Singing Steel Plate",
+      4.184
+    ],
+    [
+      "Stuttering Granular Cascade",
+      "Acoustic Double Bass",
+      4.188
+    ],
+    [
+      "Dark Additive Obelisk",
+      "Nordic Felt Piano",
+      4.198
+    ],
+    [
+      "Alien Choir",
+      "Stutter Gate Choir",
+      4.201
+    ],
+    [
+      "Pan Pipes",
+      "Operatic Formant Lead",
+      4.206
+    ],
+    [
+      "Tubular Chimes",
+      "Cellar Toy Piano",
+      4.21
+    ],
+    [
+      "Bowed Crystal Glass",
+      "Rising Ascension Swell",
+      4.213
+    ],
+    [
+      "Metal Pipe Drone",
+      "Rising Ascension Swell",
+      4.219
+    ],
+    [
+      "Glass Harmonica",
+      "Solar Flare Phaser",
+      4.222
+    ],
+    [
+      "Choir of Ghosts",
+      "Glass Harmonica Squall",
+      4.228
+    ],
+    [
+      "Aurora Granules",
+      "Alien Choir",
+      4.234
+    ],
+    [
+      "Analog Dreams",
+      "B3 Gospel Spinner",
+      4.238
+    ],
+    [
+      "Choir of Ghosts",
+      "Insectoid Swarm",
+      4.239
+    ],
+    [
+      "Horror Scrape Agony",
+      "B3 Gospel Spinner",
+      4.247
+    ],
+    [
+      "Solar Flare Phaser",
+      "Monastery Crypt Chant",
+      4.251
+    ],
+    [
+      "Glass Cathedral",
+      "Analog Dreams",
+      4.253
+    ],
+    [
+      "Galleon Timber Creak",
+      "Tension String Cluster",
+      4.269
+    ],
+    [
+      "Singing Bowl Drone",
+      "Glass Harmonica",
+      4.272
+    ],
+    [
+      "Bowed Cello",
+      "B3 Gospel Spinner",
+      4.272
+    ],
+    [
+      "Glass Cathedral",
+      "Metal Pipe Drone",
+      4.28
+    ],
+    [
+      "Rosewood Xylophone",
+      "Kyoto Silk Koto",
+      4.283
+    ],
+    [
+      "Metal Pipe Drone",
+      "Braam of Doom",
+      4.288
+    ],
+    [
+      "Broken Window Howl",
+      "Insectoid Swarm",
+      4.293
+    ],
+    [
+      "Ocean Wind",
+      "Tension String Cluster",
+      4.296
+    ],
+    [
+      "Solar Flare Phaser",
+      "Acoustic Double Bass",
+      4.296
+    ],
+    [
+      "B3 Gospel Spinner",
+      "Kyoto Silk Koto",
+      4.298
+    ],
+    [
+      "Analog Dreams",
+      "Pumping Saw Thruster",
+      4.3
+    ],
+    [
+      "Church Bells",
+      "Pumping Saw Thruster",
+      4.311
+    ],
+    [
+      "Aurora Granules",
+      "Bowed Crystal Glass",
+      4.312
+    ],
+    [
+      "Rosewood Xylophone",
+      "Trinidad Steel Drum",
+      4.319
+    ],
+    [
+      "Glass Harmonica",
+      "Alien Choir",
+      4.324
+    ],
+    [
+      "Trinidad Steel Drum",
+      "Kyoto Silk Koto",
+      4.327
+    ],
+    [
+      "Crystalline Shimmer Spire",
+      "Broken Window Howl",
+      4.332
+    ],
+    [
+      "Glass Harmonica Squall",
+      "Insectoid Swarm",
+      4.332
+    ],
+    [
+      "Bowed Cello",
+      "Noble French Horns",
+      4.333
+    ],
+    [
+      "Alien Choir",
+      "Tibetan Bowl",
+      4.335
+    ],
+    [
+      "Granular Shimmer Clouds",
+      "Monastery Crypt Chant",
+      4.337
+    ],
+    [
+      "Solitary Cello Lead",
+      "Noble French Horns",
+      4.34
+    ],
+    [
+      "Plucked Upright",
+      "Pumping Saw Thruster",
+      4.342
+    ],
+    [
+      "Glass Cathedral",
+      "Tension String Cluster",
+      4.347
+    ],
+    [
+      "Braam of Doom",
+      "Fretless Warmth",
+      4.349
+    ],
+    [
+      "Choir of Ghosts",
+      "Metal Pipe Drone",
+      4.35
+    ],
+    [
+      "Nylon Pluck",
+      "Funky D6 Clav",
+      4.353
+    ],
+    [
+      "Kalimba",
+      "Kyoto Silk Koto",
+      4.362
+    ],
+    [
+      "Church Bells",
+      "Tibetan Bowl",
+      4.363
+    ],
+    [
+      "Glass Cathedral",
+      "Singing Bowl Drone",
+      4.364
+    ],
+    [
+      "Choir of Ghosts",
+      "Broken Window Howl",
+      4.366
+    ],
+    [
+      "Church Bells",
+      "Galleon Timber Creak",
+      4.366
+    ],
+    [
+      "Tension String Cluster",
+      "Stuttering Granular Cascade",
+      4.368
+    ],
+    [
+      "Rotary Pulsar Organ",
+      "Fretless Warmth",
+      4.37
+    ],
+    [
+      "Singing Bowl Drone",
+      "Braam of Doom",
+      4.374
+    ],
+    [
+      "Tubular Chimes",
+      "String Ensemble",
+      4.375
+    ],
+    [
+      "Celestial String Solina",
+      "Stutter Gate Choir",
+      4.379
+    ],
+    [
+      "Singing Bowl Drone",
+      "Celestial String Solina",
+      4.385
+    ],
+    [
+      "Bowed Cello",
+      "Rotary Pulsar Organ",
+      4.386
+    ],
+    [
+      "Solar Flare Phaser",
+      "Broken Window Howl",
+      4.389
+    ],
+    [
+      "Alien Choir",
+      "Broken Window Howl",
+      4.395
+    ],
+    [
+      "Alien Choir",
+      "Braam of Doom",
+      4.395
+    ],
+    [
+      "B3 Gospel Spinner",
+      "Cellar Toy Piano",
+      4.395
+    ],
+    [
+      "Braam of Doom",
+      "Tremolo Telecaster Pluck",
+      4.399
+    ],
+    [
+      "Distant Factory Drone",
+      "Tension String Cluster",
+      4.401
+    ],
+    [
+      "Celtic Concert Harp",
+      "Varanasi Sitar Drone",
+      4.402
+    ],
+    [
+      "Bowed Cello",
+      "Cellar Toy Piano",
+      4.403
+    ],
+    [
+      "Galleon Timber Creak",
+      "B3 Gospel Spinner",
+      4.405
+    ],
+    [
+      "Tibetan Bowl",
+      "Acoustic Double Bass",
+      4.41
+    ],
+    [
+      "Solar Flare Phaser",
+      "Granular Shimmer Clouds",
+      4.41
+    ],
+    [
+      "Glass Cathedral",
+      "Granular Swarm",
+      4.411
+    ],
+    [
+      "Choir of Ghosts",
+      "Granular Swarm",
+      4.414
+    ],
+    [
+      "Tibetan Bowl",
+      "Fretless Warmth",
+      4.415
+    ],
+    [
+      "Glass Harmonica",
+      "Celestial String Solina",
+      4.425
+    ],
+    [
+      "Muted Nashville Twin",
+      "Glassy Prism Pluck",
+      4.427
+    ],
+    [
+      "Nylon Pluck",
+      "Celtic Concert Harp",
+      4.43
+    ],
+    [
+      "Solar Flare Phaser",
+      "Stuttering Granular Cascade",
+      4.431
+    ],
+    [
+      "Harp of Wire",
+      "Varanasi Sitar Drone",
+      4.438
+    ],
+    [
+      "Aurora Granules",
+      "Granular Swarm",
+      4.443
+    ],
+    [
+      "Celestial String Solina",
+      "Broken Window Howl",
+      4.445
+    ],
+    [
+      "Galleon Timber Creak",
+      "Acoustic Double Bass",
+      4.446
+    ],
+    [
+      "Vocal Choir Osmosis",
+      "Singing Steel Plate",
+      4.448
+    ],
+    [
+      "Glass Harmonica Squall",
+      "Cyber Berserker",
+      4.45
+    ],
+    [
+      "Aurora Granules",
+      "Solar Flare Phaser",
+      4.453
+    ],
+    [
+      "Hyper Saw Supernova",
+      "Tension String Cluster",
+      4.453
+    ],
+    [
+      "Galleon Timber Creak",
+      "Braam of Doom",
+      4.454
+    ],
+    [
+      "Insectoid Swarm",
+      "Tension String Cluster",
+      4.455
+    ],
+    [
+      "Granular Swarm",
+      "Celestial String Solina",
+      4.456
+    ],
+    [
+      "String Ensemble",
+      "Noble French Horns",
+      4.458
+    ],
+    [
+      "Acoustic Double Bass",
+      "Tribal Conga Slap",
+      4.458
+    ],
+    [
+      "Hyper Saw Supernova",
+      "Celestial String Solina",
+      4.459
+    ],
+    [
+      "Tremolo Telecaster Pluck",
+      "Rotary Pulsar Organ",
+      4.459
+    ],
+    [
+      "Ocean Wind",
+      "Solar Flare Phaser",
+      4.462
+    ],
+    [
+      "Glass Cathedral",
+      "Braam of Doom",
+      4.468
+    ],
+    [
+      "Glass Cathedral",
+      "Choir of Ghosts",
+      4.473
+    ],
+    [
+      "Plucked Upright",
+      "Fretless Warmth",
+      4.474
+    ],
+    [
+      "Crystalline Shimmer Spire",
+      "Tension String Cluster",
+      4.482
+    ],
+    [
+      "FM Tine Piano",
+      "Kyoto Silk Koto",
+      4.493
+    ],
+    [
+      "Whistling Wind",
+      "Tension String Cluster",
+      4.497
+    ],
+    [
+      "Vibraphone",
+      "Hollow Organ",
+      4.499
+    ],
+    [
+      "Formant Growl",
+      "Acid Squelch 303",
+      4.499
+    ],
+    [
+      "Solar Flare Phaser",
+      "Stutter Gate Choir",
+      4.504
+    ],
+    [
+      "Bowed Crystal Glass",
+      "Fretless Warmth",
+      4.506
+    ],
+    [
+      "Glass Cathedral",
+      "Galleon Timber Creak",
+      4.507
+    ],
+    [
+      "Singing Bowl Drone",
+      "Tension String Cluster",
+      4.51
+    ],
+    [
+      "Glass Harmonica",
+      "Singing Steel Plate",
+      4.51
+    ],
+    [
+      "Analog Dreams",
+      "Glass Harmonica",
+      4.511
+    ],
+    [
+      "Glass Cathedral",
+      "Granular Shimmer Clouds",
+      4.521
+    ],
+    [
+      "Celestial String Solina",
+      "Pumping Saw Thruster",
+      4.523
+    ],
+    [
+      "Cyber Berserker",
+      "Operatic Formant Lead",
+      4.535
+    ],
+    [
+      "Tibetan Bowl",
+      "Distant Factory Drone",
+      4.536
+    ],
+    [
+      "Trinidad Steel Drum",
+      "Handpan Meditation",
+      4.536
+    ],
+    [
+      "Crystalline Shimmer Spire",
+      "Glass Harmonica Squall",
+      4.537
+    ],
+    [
+      "Aurora Granules",
+      "Singing Bowl Drone",
+      4.54
+    ],
+    [
+      "Glass Cathedral",
+      "Monastery Crypt Chant",
+      4.542
+    ],
+    [
+      "Bowed Crystal Glass",
+      "Horror Scrape Agony",
+      4.542
+    ],
+    [
+      "Choir of Ghosts",
+      "Tension String Cluster",
+      4.544
+    ],
+    [
+      "Metal Pipe Drone",
+      "Singing Steel Plate",
+      4.545
+    ],
+    [
+      "Analog Dreams",
+      "Horror Scrape Agony",
+      4.546
+    ],
+    [
+      "Singing Bowl Drone",
+      "Formant Growl",
+      4.547
+    ],
+    [
+      "Celtic Concert Harp",
+      "Rosewood Xylophone",
+      4.547
+    ],
+    [
+      "Hollow Organ",
+      "Trinidad Steel Drum",
+      4.55
+    ],
+    [
+      "Glass Cathedral",
+      "Vocal Choir Osmosis",
+      4.553
+    ],
+    [
+      "Kalimba",
+      "Bamboo Shakuhachi Zen",
+      4.556
+    ],
+    [
+      "Aurora Granules",
+      "Stuttering Granular Cascade",
+      4.557
+    ],
+    [
+      "Broken Window Howl",
+      "Vortex Downlifter",
+      4.557
+    ],
+    [
+      "Choir of Ghosts",
+      "Rain on Zinc Roof",
+      4.558
+    ],
+    [
+      "Granular Swarm",
+      "Rain on Zinc Roof",
+      4.566
+    ],
+    [
+      "Analog Dreams",
+      "Rising Ascension Swell",
+      4.567
+    ],
+    [
+      "Tibetan Bowl",
+      "Galleon Timber Creak",
+      4.569
+    ],
+    [
+      "Metal Pipe Drone",
+      "Polar Needle Frost",
+      4.569
+    ],
+    [
+      "Choir of Ghosts",
+      "Vocal Choir Osmosis",
+      4.573
+    ],
+    [
+      "Hollow Organ",
+      "Rosewood Xylophone",
+      4.574
+    ],
+    [
+      "Glass Cathedral",
+      "Broken Window Howl",
+      4.575
+    ],
+    [
+      "Bowed Crystal Glass",
+      "Glass Harmonica Squall",
+      4.576
+    ],
+    [
+      "Nylon Pluck",
+      "Glassy Prism Pluck",
+      4.58
+    ],
+    [
+      "Singing Bowl Drone",
+      "Broken Window Howl",
+      4.583
+    ],
+    [
+      "Tubular Chimes",
+      "Bowed Cello",
+      4.587
+    ],
+    [
+      "Celtic Concert Harp",
+      "Bamboo Shakuhachi Zen",
+      4.587
+    ],
+    [
+      "Tension String Cluster",
+      "Acoustic Double Bass",
+      4.589
+    ],
+    [
+      "Whistling Wind",
+      "Granular Swarm",
+      4.59
+    ],
+    [
+      "Vibraphone",
+      "FM Tine Piano",
+      4.591
+    ],
+    [
+      "Pan Pipes",
+      "Vintage Brass Stab",
+      4.595
+    ],
+    [
+      "Braam of Doom",
+      "Stutter Gate Choir",
+      4.596
+    ],
+    [
+      "Singing Bowl Drone",
+      "Granular Swarm",
+      4.601
+    ],
+    [
+      "Vibraphone",
+      "Tubular Chimes",
+      4.602
+    ],
+    [
+      "Glass Harmonica",
+      "Fretless Warmth",
+      4.607
+    ],
+    [
+      "Crystalline Shimmer Spire",
+      "Insectoid Swarm",
+      4.616
+    ],
+    [
+      "Cellar Toy Piano",
+      "Handpan Meditation",
+      4.622
+    ],
+    [
+      "Hollow Organ",
+      "Kyoto Silk Koto",
+      4.623
+    ],
+    [
+      "Analog Dreams",
+      "Stuttering Granular Cascade",
+      4.627
+    ],
+    [
+      "Aurora Granules",
+      "Granular Shimmer Clouds",
+      4.631
+    ],
+    [
+      "Glassy Prism Pluck",
+      "Varanasi Sitar Drone",
+      4.631
+    ],
+    [
+      "Glass Cathedral",
+      "Church Bells",
+      4.634
+    ],
+    [
+      "Solar Flare Phaser",
+      "Galleon Timber Creak",
+      4.635
+    ],
+    [
+      "FM Tine Piano",
+      "Cellar Toy Piano",
+      4.636
+    ],
+    [
+      "Hyper Saw Supernova",
+      "Solar Flare Phaser",
+      4.637
+    ],
+    [
+      "Metal Pipe Drone",
+      "Vocal Choir Osmosis",
+      4.638
+    ],
+    [
+      "Horror Scrape Agony",
+      "Pumping Saw Thruster",
+      4.639
+    ],
+    [
+      "Alien Choir",
+      "Monastery Crypt Chant",
+      4.643
+    ],
+    [
+      "Muted Nashville Twin",
+      "Celtic Concert Harp",
+      4.643
+    ],
+    [
+      "Cellar Toy Piano",
+      "Kyoto Silk Koto",
+      4.645
+    ],
+    [
+      "Vocal Choir Osmosis",
+      "Broken Window Howl",
+      4.649
+    ],
+    [
+      "Whistling Wind",
+      "Distant Factory Drone",
+      4.651
+    ],
+    [
+      "Tibetan Bowl",
+      "Celestial String Solina",
+      4.655
+    ],
+    [
+      "Alien Choir",
+      "Granular Shimmer Clouds",
+      4.656
+    ],
+    [
+      "Alien Choir",
+      "Formant Growl",
+      4.661
+    ],
+    [
+      "Hyper Saw Supernova",
+      "Galleon Timber Creak",
+      4.662
+    ],
+    [
+      "Sync Lead",
+      "Solitary Cello Lead",
+      4.667
+    ],
+    [
+      "Granular Swarm",
+      "Bowed Crystal Glass",
+      4.671
+    ],
+    [
+      "Alien Choir",
+      "Granular Swarm",
+      4.672
+    ],
+    [
+      "Glass Harmonica",
+      "Cavern of Cold Drips",
+      4.673
+    ],
+    [
+      "Church Bells",
+      "Braam of Doom",
+      4.675
+    ],
+    [
+      "FM Tine Piano",
+      "Trinidad Steel Drum",
+      4.677
+    ],
+    [
+      "Cellar Toy Piano",
+      "Noble French Horns",
+      4.677
+    ],
+    [
+      "Pumping Saw Thruster",
+      "Stuttering Granular Cascade",
+      4.678
+    ],
+    [
+      "Crystalline Shimmer Spire",
+      "Galleon Timber Creak",
+      4.68
+    ],
+    [
+      "Galleon Timber Creak",
+      "Cellar Toy Piano",
+      4.686
+    ],
+    [
+      "Singing Bowl Drone",
+      "Submerged Ocean Trench",
+      4.687
+    ],
+    [
+      "Choir of Ghosts",
+      "Celestial String Solina",
+      4.689
+    ],
+    [
+      "Glass Harmonica",
+      "Broken Window Howl",
+      4.689
+    ],
+    [
+      "B3 Gospel Spinner",
+      "Handpan Meditation",
+      4.69
+    ],
+    [
+      "Tubular Chimes",
+      "Rosewood Xylophone",
+      4.692
+    ],
+    [
+      "Harp of Wire",
+      "Muted Nashville Twin",
+      4.695
+    ],
+    [
+      "Analog Dreams",
+      "Tension String Cluster",
+      4.697
+    ],
+    [
+      "Granular Swarm",
+      "Stutter Gate Choir",
+      4.701
+    ],
+    [
+      "Celestial String Solina",
+      "Tremolo Telecaster Pluck",
+      4.702
+    ],
+    [
+      "String Ensemble",
+      "Handpan Meditation",
+      4.705
+    ],
+    [
+      "Braam of Doom",
+      "Acoustic Double Bass",
+      4.707
+    ],
+    [
+      "Whistling Wind",
+      "Alien Carrier Spiral",
+      4.708
+    ]
+  ],
+  "nearest": {
+    "Glass Cathedral": [
+      "Solar Flare Phaser",
+      2.388
+    ],
+    "Choir of Ghosts": [
+      "Alien Choir",
+      3.62
+    ],
+    "Aurora Granules": [
+      "Alien Choir",
+      4.234
+    ],
+    "Analog Dreams": [
+      "Celestial String Solina",
+      3.223
+    ],
+    "Singing Bowl Drone": [
+      "Alien Choir",
+      3.019
+    ],
+    "Hyper Saw Supernova": [
+      "Analog Dreams",
+      3.961
+    ],
+    "Glass Harmonica": [
+      "Bowed Crystal Glass",
+      2.736
+    ],
+    "Alien Choir": [
+      "Solar Flare Phaser",
+      2.939
+    ],
+    "Harp of Wire": [
+      "Celtic Concert Harp",
+      2.163
+    ],
+    "Nylon Pluck": [
+      "Rosewood Xylophone",
+      4.072
+    ],
+    "Koto Steel": [
+      "Celtic Concert Harp",
+      2.669
+    ],
+    "Sitar Buzz": [
+      "Koto Steel",
+      2.782
+    ],
+    "Marimba Hall": [
+      "Trinidad Steel Drum",
+      3.717
+    ],
+    "Vibraphone": [
+      "Marimba Hall",
+      3.919
+    ],
+    "Church Bells": [
+      "Titan Colossus Impact",
+      3.456
+    ],
+    "Tubular Chimes": [
+      "FM Tine Piano",
+      3.48
+    ],
+    "Tibetan Bowl": [
+      "Bowed Crystal Glass",
+      3.061
+    ],
+    "Kalimba": [
+      "Celtic Concert Harp",
+      2.871
+    ],
+    "FM Tine Piano": [
+      "Tubular Chimes",
+      3.48
+    ],
+    "Hollow Organ": [
+      "Tubular Chimes",
+      3.579
+    ],
+    "Ladder Bass": [
+      "B3 Gospel Spinner",
+      5.417
+    ],
+    "Plucked Upright": [
+      "Acoustic Double Bass",
+      3.731
+    ],
+    "Formant Growl": [
+      "Acid Squelch 303",
+      4.499
+    ],
+    "Bowed Cello": [
+      "B3 Gospel Spinner",
+      4.272
+    ],
+    "String Ensemble": [
+      "Tubular Chimes",
+      4.375
+    ],
+    "Sync Lead": [
+      "Solitary Cello Lead",
+      4.667
+    ],
+    "Breathy Flute": [
+      "Shakuhachi",
+      2.095
+    ],
+    "Shakuhachi": [
+      "Breathy Flute",
+      2.095
+    ],
+    "Pan Pipes": [
+      "Shakuhachi",
+      3.116
+    ],
+    "Soprano Aah": [
+      "Operatic Formant Lead",
+      3.452
+    ],
+    "Robot Vowels": [
+      "Operatic Formant Lead",
+      5.038
+    ],
+    "Ocean Wind": [
+      "Whistling Wind",
+      1.978
+    ],
+    "Whistling Wind": [
+      "Ocean Wind",
+      1.978
+    ],
+    "Metal Pipe Drone": [
+      "Bowed Crystal Glass",
+      2.842
+    ],
+    "Granular Swarm": [
+      "Solar Flare Phaser",
+      3.592
+    ],
+    "Vocal Choir Osmosis": [
+      "Alien Choir",
+      3.577
+    ],
+    "Bowed Crystal Glass": [
+      "Glass Harmonica",
+      2.736
+    ],
+    "Solar Flare Phaser": [
+      "Glass Cathedral",
+      2.388
+    ],
+    "Granular Shimmer Clouds": [
+      "Monastery Crypt Chant",
+      4.337
+    ],
+    "Dark Additive Obelisk": [
+      "Polar Needle Frost",
+      4.043
+    ],
+    "Crystalline Shimmer Spire": [
+      "Glass Cathedral",
+      3.628
+    ],
+    "Cassette Memory Tape": [
+      "Dark Additive Obelisk",
+      5.029
+    ],
+    "Celestial String Solina": [
+      "Bowed Crystal Glass",
+      3.155
+    ],
+    "Broken Window Howl": [
+      "Glass Harmonica Squall",
+      3.243
+    ],
+    "Distant Factory Drone": [
+      "Ocean Wind",
+      3.8
+    ],
+    "Submerged Ocean Trench": [
+      "Singing Bowl Drone",
+      4.687
+    ],
+    "Shortwave Ghost Radios": [
+      "Dust and Vinyl Embers",
+      5.409
+    ],
+    "Cavern of Cold Drips": [
+      "Glass Harmonica",
+      4.673
+    ],
+    "Glass Harmonica Squall": [
+      "Broken Window Howl",
+      3.243
+    ],
+    "Tanpura Resonance Drone": [
+      "Glass Harmonica",
+      5.033
+    ],
+    "Monastery Crypt Chant": [
+      "Neuro Reese Bass",
+      3.902
+    ],
+    "Gong Wash Horizon": [
+      "Handpan Meditation",
+      4.982
+    ],
+    "Abyssal Sub Resonator": [
+      "Submerged Ocean Trench",
+      5.056
+    ],
+    "Singing Steel Plate": [
+      "Celestial String Solina",
+      3.609
+    ],
+    "Insectoid Swarm": [
+      "Whistling Wind",
+      3.795
+    ],
+    "Dust and Vinyl Embers": [
+      "Shortwave Ghost Radios",
+      5.409
+    ],
+    "Galleon Timber Creak": [
+      "Pumping Saw Thruster",
+      3.485
+    ],
+    "Rain on Zinc Roof": [
+      "Ocean Wind",
+      2.105
+    ],
+    "Polar Needle Frost": [
+      "Dark Additive Obelisk",
+      4.043
+    ],
+    "Bowed Wire Friction": [
+      "Horror Scrape Agony",
+      4.97
+    ],
+    "Braam of Doom": [
+      "Tension String Cluster",
+      3.486
+    ],
+    "Tension String Cluster": [
+      "Celestial String Solina",
+      3.466
+    ],
+    "Horror Scrape Agony": [
+      "Highland Bagpipe Drone",
+      4.065
+    ],
+    "Titan Colossus Impact": [
+      "Church Bells",
+      3.456
+    ],
+    "Rising Ascension Swell": [
+      "Vocal Choir Osmosis",
+      3.858
+    ],
+    "Stutter Gate Choir": [
+      "Alien Choir",
+      4.201
+    ],
+    "Pumping Saw Thruster": [
+      "Galleon Timber Creak",
+      3.485
+    ],
+    "Stuttering Granular Cascade": [
+      "Granular Swarm",
+      4.134
+    ],
+    "Tremolo Telecaster Pluck": [
+      "Pumping Saw Thruster",
+      3.939
+    ],
+    "Rotary Pulsar Organ": [
+      "Pumping Saw Thruster",
+      4.115
+    ],
+    "Hyper Zap Annihilator": [
+      "Acoustic Wood Snare",
+      4.842
+    ],
+    "Cyber Berserker": [
+      "Glass Harmonica Squall",
+      4.45
+    ],
+    "Sci-Fi Comm Bleeps": [
+      "Kyoto Silk Koto",
+      5.933
+    ],
+    "Alien Carrier Spiral": [
+      "Whistling Wind",
+      4.708
+    ],
+    "Vortex Downlifter": [
+      "Broken Window Howl",
+      4.557
+    ],
+    "Suitcase Seventy-Three": [
+      "Orchestral Glockenspiel",
+      8.363
+    ],
+    "Wurlitzer Reed": [
+      "Slap Funk Thumb",
+      7.195
+    ],
+    "Funky D6 Clav": [
+      "Appalachian Banjo",
+      3.406
+    ],
+    "B3 Gospel Spinner": [
+      "Highland Bagpipe Drone",
+      2.898
+    ],
+    "Cellar Toy Piano": [
+      "Tubular Chimes",
+      4.21
+    ],
+    "Nordic Felt Piano": [
+      "Dark Additive Obelisk",
+      4.198
+    ],
+    "Deep 808 Boom": [
+      "Plucked Upright",
+      8.75
+    ],
+    "Neuro Reese Bass": [
+      "Monastery Crypt Chant",
+      3.902
+    ],
+    "Acoustic Double Bass": [
+      "Fretless Warmth",
+      3.702
+    ],
+    "Slap Funk Thumb": [
+      "Bamboo Shakuhachi Zen",
+      5.442
+    ],
+    "Acid Squelch 303": [
+      "Formant Growl",
+      4.499
+    ],
+    "Fretless Warmth": [
+      "Glass Cathedral",
+      3.556
+    ],
+    "Subterranean Growl": [
+      "Acid Squelch 303",
+      6.614
+    ],
+    "Screaming Sync Lead": [
+      "Varanasi Sitar Drone",
+      5.21
+    ],
+    "Whistling Shepherd": [
+      "Koto Steel",
+      7.249
+    ],
+    "Arcade Hero Square": [
+      "Cyber Berserker",
+      4.743
+    ],
+    "Operatic Formant Lead": [
+      "Vintage Brass Stab",
+      3.022
+    ],
+    "Solitary Cello Lead": [
+      "Noble French Horns",
+      4.34
+    ],
+    "Ring Mod Cry Baby": [
+      "Sync Lead",
+      5.152
+    ],
+    "Appalachian Banjo": [
+      "Funky D6 Clav",
+      3.406
+    ],
+    "Muted Nashville Twin": [
+      "Glassy Prism Pluck",
+      4.427
+    ],
+    "Celtic Concert Harp": [
+      "Harp of Wire",
+      2.163
+    ],
+    "Orchestral Pizzicato": [
+      "Kyoto Silk Koto",
+      3.588
+    ],
+    "Glassy Prism Pluck": [
+      "Harp of Wire",
+      2.173
+    ],
+    "Rosewood Xylophone": [
+      "Kalimba",
+      3.604
+    ],
+    "Orchestral Glockenspiel": [
+      "Sitar Buzz",
+      5.582
+    ],
+    "Trinidad Steel Drum": [
+      "Tubular Chimes",
+      3.656
+    ],
+    "Handpan Meditation": [
+      "FM Tine Piano",
+      3.827
+    ],
+    "Varanasi Sitar Drone": [
+      "Celtic Concert Harp",
+      4.402
+    ],
+    "Kyoto Silk Koto": [
+      "Orchestral Pizzicato",
+      3.588
+    ],
+    "Bamboo Shakuhachi Zen": [
+      "Kalimba",
+      4.556
+    ],
+    "Outback Didgeridoo": [
+      "Acoustic Double Bass",
+      4.146
+    ],
+    "Highland Bagpipe Drone": [
+      "B3 Gospel Spinner",
+      2.898
+    ],
+    "Vintage Brass Stab": [
+      "Operatic Formant Lead",
+      3.022
+    ],
+    "Miles Muted Trumpet": [
+      "Wurlitzer Reed",
+      8.322
+    ],
+    "Noble French Horns": [
+      "Bowed Cello",
+      4.333
+    ],
+    "Sub Kick Drum": [
+      "Deep 808 Boom",
+      8.839
+    ],
+    "Acoustic Wood Snare": [
+      "Whistling Wind",
+      4.73
+    ],
+    "Crisp Studio Hi-Hat": [
+      "Slap Funk Thumb",
+      11.565
+    ],
+    "Tribal Conga Slap": [
+      "Acoustic Double Bass",
+      4.458
+    ]
+  },
+  "category_stats": {
+    "Atmos": {
+      "intra": 6.596,
+      "inter": 7.925
+    },
+    "Bass": {
+      "intra": 7.271,
+      "inter": 8.451
+    },
+    "Brass": {
+      "intra": 11.976,
+      "inter": 10.05
+    },
+    "Cinematic": {
+      "intra": 5.58,
+      "inter": 7.269
+    },
+    "Drone": {
+      "intra": 6.894,
+      "inter": 7.999
+    },
+    "FX": {
+      "intra": 7.073,
+      "inter": 8.25
+    },
+    "Keys": {
+      "intra": 8.099,
+      "inter": 8.586
+    },
+    "Lead": {
+      "intra": 7.03,
+      "inter": 8.387
+    },
+    "Mallet": {
+      "intra": 5.996,
+      "inter": 7.769
+    },
+    "Pad": {
+      "intra": 5.642,
+      "inter": 7.722
+    },
+    "Percussion": {
+      "intra": 11.157,
+      "inter": 11.075
+    },
+    "Pluck": {
+      "intra": 4.958,
+      "inter": 8.084
+    },
+    "Pulse": {
+      "intra": 5.244,
+      "inter": 7.401
+    },
+    "Strings": {
+      "intra": 5.595,
+      "inter": 7.742
+    },
+    "Texture": {
+      "intra": 7.437,
+      "inter": 8.041
+    },
+    "Vocal": {
+      "intra": 5.901,
+      "inter": 8.501
+    },
+    "Wind": {
+      "intra": 2.839,
+      "inter": 8.096
+    },
+    "World": {
+      "intra": 6.102,
+      "inter": 7.265
+    }
+  }
+}

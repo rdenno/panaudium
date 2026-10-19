@@ -411,7 +411,7 @@ private:
             const float s = lastOutB;
             const float bm = c.fmDepth;                           // "FM Depth" knob = wooden body resonance amount
             const float body = s + bm * (0.6f * bodyA.k * bodyA.bp(s) + 0.4f * bodyB.k * bodyB.bp(s) + 0.3f * bodyC.k * bodyC.bp(s));
-            out[i] = body * 8.f;
+            out[i] = body * 2.5f;   // calibrated so a single bowed voice sits near the other engines' level
         }
     }
 

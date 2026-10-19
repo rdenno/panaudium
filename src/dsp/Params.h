@@ -1,7 +1,12 @@
 // Panaudium — sample-free layered synth. DSP core is AGPL-3.0 (see LICENSE).
 #pragma once
+#include <cmath>
+#include <cstdio>
+#include <cstdlib>
 #include <string>
+#include <utility>
 #include <vector>
+#include "fx/FxUnit.h"
 
 namespace op {
 
@@ -21,16 +26,22 @@ enum LayerParam {
     L_NumLayerParams
 };
 
-enum GlobalParam {
-    G_Gain, G_Glide, G_ChorusMix, G_ChorusRate, G_DelayTime, G_DelayFB, G_DelayMix,
-    G_RevSize, G_RevDamp, G_RevMix,
-    G_NumGlobal
-};
+enum GlobalParam { G_Gain, G_Glide, G_NumGlobal };
+
+// FX racks, as in Omnisphere: one per layer plus a common rack on the summed output.
+enum FxRackId { R_A, R_B, R_Common, R_NumRacks };
+constexpr int kRackSlots[R_NumRacks] = { 3, 3, 4 };
+constexpr int kRackFirstSlot[R_NumRacks] = { 0, 3, 6 };
+constexpr int kNumFxSlots = 10;
+enum FxSlotParam { S_Type, S_On, S_Mix, S_Model, S_K1, S_K2, S_K3, S_K4, S_K5, S_K6, S_NumSlotParams };
 
 constexpr int kNumLayers = 2;
-constexpr int kNumParams = kNumLayers * L_NumLayerParams + G_NumGlobal;
+constexpr int kFxParamBase = kNumLayers * L_NumLayerParams + G_NumGlobal;
+constexpr int kNumParams = kFxParamBase + kNumFxSlots * S_NumSlotParams;
 constexpr int lp(int layer, int p) { return layer * L_NumLayerParams + p; }
 constexpr int gp(int g) { return kNumLayers * L_NumLayerParams + g; }
+constexpr int fxSlot(int rack, int i) { return kRackFirstSlot[rack] + i; }
+constexpr int fxp(int slot, int p) { return kFxParamBase + slot * S_NumSlotParams + p; }
 
 struct ParamDef {
     std::string id, name;
@@ -38,7 +49,45 @@ struct ParamDef {
     float centre = 0.f;               // >0: log-ish skew so that this value sits mid-knob
     bool isInt = false;
     std::vector<std::string> choices; // non-empty: choice parameter (value = index)
+    std::string unit = "";            // display unit for formatValue(): "%", "Hz", "s", "dB", "ct", "st", "oct", "x", "pan"
 };
+
+// Human-readable value text shared by the plugin (host automation readouts) and the GUI.
+inline std::string formatValue(float v, const std::string& unit) {
+    char b[48];
+    if (unit == "%") std::snprintf(b, sizeof b, "%.0f %%", v * 100.f);
+    else if (unit == "Hz") {
+        if (v >= 1000.f) std::snprintf(b, sizeof b, "%.2f kHz", v / 1000.f);
+        else if (v >= 100.f) std::snprintf(b, sizeof b, "%.0f Hz", v);
+        else std::snprintf(b, sizeof b, "%.2f Hz", v);
+    }
+    else if (unit == "s") { if (v < 1.f) std::snprintf(b, sizeof b, "%.0f ms", v * 1000.f); else std::snprintf(b, sizeof b, "%.2f s", v); }
+    else if (unit == "ms") std::snprintf(b, sizeof b, "%.1f ms", v);
+    else if (unit == "dB") std::snprintf(b, sizeof b, "%+.1f dB", v);
+    else if (unit == "ct") std::snprintf(b, sizeof b, "%+.0f ct", v);
+    else if (unit == "st") std::snprintf(b, sizeof b, "%.2f st", v);
+    else if (unit == "oct") std::snprintf(b, sizeof b, "%+.2f oct", v);
+    else if (unit == "x") std::snprintf(b, sizeof b, "%.2fx", v);
+    else if (unit == "deg") std::snprintf(b, sizeof b, "%.0f deg", v);
+    else if (unit == "pan") {
+        if (v < -0.005f) std::snprintf(b, sizeof b, "L %.0f", -v * 100.f);
+        else if (v > 0.005f) std::snprintf(b, sizeof b, "R %.0f", v * 100.f);
+        else std::snprintf(b, sizeof b, "C");
+    }
+    else std::snprintf(b, sizeof b, "%.2f", v);
+    return b;
+}
+
+// Inverse of formatValue for typed-in values: understands "350 ms", "2.4 kHz", "45 %", "L 20".
+inline float parseValue(const std::string& text, const std::string& unit) {
+    float v = std::strtof(text.c_str(), nullptr);
+    auto has = [&](const char* s) { return text.find(s) != std::string::npos; };
+    if (unit == "%") return v / 100.f;
+    if (unit == "s" && has("ms")) return v / 1000.f;
+    if (unit == "Hz" && (has("k") || has("K"))) return v * 1000.f;
+    if (unit == "pan") { if (has("L") || has("l")) return -std::fabs(v) / 100.f; if (has("R") || has("r")) return std::fabs(v) / 100.f; return v; }
+    return v;
+}
 
 inline const std::vector<std::string>& engineNames() {
     static const std::vector<std::string> n = { "Analog/FM", "Spectral (additive)", "Granular", "Plucked String",
@@ -47,6 +96,32 @@ inline const std::vector<std::string>& engineNames() {
 }
 inline const std::vector<std::string>& filterNames() {
     static const std::vector<std::string> n = { "Off", "LPF 12", "LPF 24", "HPF 12", "Bandpass", "Notch", "Formant", "Comb (Metal Pipe)" };
+    return n;
+}
+
+// What the generic Timbre / Shape / Character / FM Depth knobs do for each engine (for UI labels).
+struct EngineLabels { const char* timbre; const char* shape; const char* chr; const char* fmDepth; const char* fmRatio; };
+inline const EngineLabels& engineLabels(int engine) {
+    static const EngineLabels t[E_NumEngines] = {
+        { "Wave Morph", "Pulse/Sym", "Hard Sync", "FM Depth", "FM Ratio" },        // VA
+        { "Brightness", "Odd/Even", "Stretch", "Spread", "-" },                    // Spectral
+        { "Density", "Grain Size", "Scatter", "Grain Tone", "-" },                 // Granular
+        { "Brightness", "Pick Pos", "Sustain", "-", "-" },                         // Pluck
+        { "Material", "Hardness", "Decay", "Inharm", "-" },                        // Modal
+        { "Vowel", "Tract Size", "Breath", "-", "-" },                             // Vocal
+        { "Breath Noise", "Tone", "Pressure", "-", "-" },                          // Pipe
+        { "Bow Pressure", "Bow Position", "Sustain", "Body", "-" },                // Bowed
+        { "Colour", "Pitch Focus", "Turbulence", "Resonance", "-" },               // Atmos
+    };
+    return t[(engine < 0 || engine >= E_NumEngines) ? 0 : engine];
+}
+
+inline const std::vector<std::string>& fxTypeNames() {
+    static const std::vector<std::string> n = [] {
+        std::vector<std::string> v;
+        for (const auto& f : fxTable()) v.push_back(f.name);
+        return v;
+    }();
     return n;
 }
 
@@ -95,20 +170,42 @@ inline std::vector<ParamDef> buildParamDefs() {
         set(L_L2Timbre, "l2timbre", "LFO2 > Timbre", 0, 1, 0);
         set(L_L2Pan, "l2pan", "LFO2 > Pan", 0, 1, 0);
         set(L_VelSens, "velsens", "Velocity Sens", 0, 1, 0.5f);
+        static const std::pair<int, const char*> units[] = {
+            { L_Level, "%" }, { L_Pan, "pan" }, { L_Fine, "ct" }, { L_Timbre, "%" }, { L_Shape, "%" }, { L_Char, "%" },
+            { L_Noise, "%" }, { L_FMDepth, "%" }, { L_FMRatio, "x" }, { L_UniDetune, "ct" }, { L_UniSpread, "%" },
+            { L_Drift, "%" }, { L_Cutoff, "Hz" }, { L_Reso, "%" }, { L_KeyTrack, "%" }, { L_FiltEnv, "oct" }, { L_Drive, "%" },
+            { L_AA, "s" }, { L_AD, "s" }, { L_AS, "%" }, { L_AR, "s" }, { L_FA, "s" }, { L_FD, "s" }, { L_FS, "%" }, { L_FR, "s" },
+            { L_L1Rate, "Hz" }, { L_L1Pitch, "st" }, { L_L1Cut, "oct" }, { L_L2Rate, "Hz" }, { L_L2Timbre, "%" }, { L_L2Pan, "%" },
+            { L_VelSens, "%" } };
+        for (const auto& u : units) d[lp(l, u.first)].unit = u.second;
     }
     auto g = [&](int p, const char* id, const char* name, float mn, float mx, float df, float centre = 0.f) {
         d[gp(p)] = ParamDef{ std::string("g_") + id, name, mn, mx, df, centre, false, {} };
     };
-    g(G_Gain, "gain", "Master Gain (dB)", -36, 6, -6);
+    g(G_Gain, "gain", "Master Gain (dB)", -36, 18, -6);
     g(G_Glide, "glide", "Glide (s)", 0, 2, 0, 0.2f);
-    g(G_ChorusMix, "chmix", "Chorus Mix", 0, 1, 0);
-    g(G_ChorusRate, "chrate", "Chorus Rate", 0.05f, 5, 0.6f, 0.8f);
-    g(G_DelayTime, "dltime", "Delay Time (s)", 0.02f, 1.5f, 0.375f, 0.35f);
-    g(G_DelayFB, "dlfb", "Delay Feedback", 0, 0.95f, 0.35f);
-    g(G_DelayMix, "dlmix", "Delay Mix", 0, 1, 0);
-    g(G_RevSize, "rvsize", "Reverb Size", 0, 1, 0.5f);
-    g(G_RevDamp, "rvdamp", "Reverb Damping", 0, 1, 0.4f);
-    g(G_RevMix, "rvmix", "Reverb Mix", 0, 1, 0.2f);
+    d[gp(G_Gain)].unit = "dB"; d[gp(G_Glide)].unit = "s";
+    // FX slots: ids like "fxA1_type", "fxC4_k3"; knob meaning depends on the slot's unit type (see fx/FxUnit.h).
+    static const char* rackTag[R_NumRacks] = { "A", "B", "C" };
+    static const char* rackName[R_NumRacks] = { "FX A", "FX B", "FX Common " };
+    for (int r = 0; r < R_NumRacks; ++r)
+        for (int i = 0; i < kRackSlots[r]; ++i) {
+            const int s = fxSlot(r, i);
+            const std::string id = std::string("fx") + rackTag[r] + std::to_string(i + 1) + "_";
+            const std::string nm = std::string(rackName[r]) + std::to_string(i + 1) + " ";
+            d[fxp(s, S_Type)] = ParamDef{ id + "type", nm + "Type", 0, float(fxTypeNames().size() - 1), 0, 0, true, fxTypeNames() };
+            d[fxp(s, S_On)] = ParamDef{ id + "on", nm + "On", 0, 1, 1, 0, true, {} };
+            d[fxp(s, S_Mix)] = ParamDef{ id + "mix", nm + "Mix", 0, 1, 1, 0, false, {}, "%" };
+            d[fxp(s, S_Model)] = ParamDef{ id + "model", nm + "Model", 0, 7, 0, 0, true, {} };
+            for (int k = 0; k < 6; ++k)
+                d[fxp(s, S_K1 + k)] = ParamDef{ id + "k" + std::to_string(k + 1), nm + "Knob " + std::to_string(k + 1), 0, 1, 0.5f, 0, false, {} };
+        }
+    // Init patch: a Hall reverb in the last common slot.
+    const int rv = fxSlot(R_Common, 3);
+    d[fxp(rv, S_Type)].def = float(FX_ProVerb);
+    d[fxp(rv, S_Mix)].def = fxInfo(FX_ProVerb).defaultMix;
+    d[fxp(rv, S_Model)].def = 1;
+    for (int k = 0; k < 6; ++k) d[fxp(rv, S_K1 + k)].def = fxKnob(FX_ProVerb, k).defNorm();
     return d;
 }
 

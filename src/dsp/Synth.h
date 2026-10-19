@@ -2,7 +2,7 @@
 #pragma once
 #include <array>
 #include "Engines.h"
-#include "Fx.h"
+#include "fx/FxRack.h"
 
 namespace op {
 
@@ -156,7 +156,10 @@ public:
     void prepare(float rate) {
         sr = rate;
         for (auto& v : voices) for (auto& l : v.layer) l.prepare(sr);
-        chorus.prepare(sr); delay.prepare(sr); reverb.prepare(sr);
+        for (int k = 0; k < kNumLayers; ++k) { busL[k].assign(size_t(kChunk), 0.f); busR[k].assign(size_t(kChunk), 0.f); }
+        for (auto& s : slots) s.prepare(sr, kChunk);
+        masterDcL = DcBlock{}; masterDcR = DcBlock{}; masterDcL.R = masterDcR.R = 1.f - kTwoPi * 5.f / sr;
+        preloadFx(params.data());
     }
     void setParam(int idx, float v) { if (idx >= 0 && idx < kNumParams) params[size_t(idx)] = v; }
     float getParam(int idx) const { return params[size_t(idx)]; }
@@ -186,29 +189,62 @@ public:
     }
     void allNotesOff() { for (auto& v : voices) { v.held = v.sustained = false; release(v); } }
 
+    // Create the FX units a parameter set needs ahead of time (call from a non-audio thread, e.g. on
+    // preset load), so the audio thread never allocates when a preset switches FX types.
+    void preloadFx(const float* p) {
+        for (int s = 0; s < kNumFxSlots; ++s) slots[s].preload(int(p[fxp(s, S_Type)] + 0.5f));
+    }
+
+    // Like preloadFx, plus let units precompute heavy state (Innerspace IRs) for these settings. Blocking; never call
+    // from the audio thread.
+    void primeFx(const float* p) {
+        for (int s = 0; s < kNumFxSlots; ++s) slots[s].prime(&p[fxp(s, S_Type)]);
+    }
+
     void process(float* L, float* R, int n) {
         int done = 0;
         while (done < n) {
+            const int m = std::min(kChunk, n - done);
+            processChunk(L + done, R + done, m);
+            done += m;
+        }
+    }
+
+private:
+    static constexpr int kChunk = 512;
+    void processChunk(float* L, float* R, int n) {
+        for (int k = 0; k < kNumLayers; ++k) { std::fill_n(busL[k].data(), n, 0.f); std::fill_n(busR[k].data(), n, 0.f); }
+        int done = 0;
+        while (done < n) {
             const int m = std::min(kBlock, n - done);
-            float* l = L + done; float* r = R + done;
-            std::fill(l, l + m, 0.f); std::fill(r, r + m, 0.f);
             const float glide = params[size_t(gp(G_Glide))];
             const float gc = glide > 0.001f ? 1.f - std::exp(-float(m) / (glide * sr)) : 1.f;
             for (auto& v : voices) {
                 if (!v.active()) continue;
                 v.cur += (v.target - v.cur) * gc;
                 for (int k = 0; k < kNumLayers; ++k)
-                    if (v.layerOn[k] && v.layer[k].active()) v.layer[k].render(l, r, m, v.cur, &params[size_t(lp(k, 0))]);
+                    if (v.layerOn[k] && v.layer[k].active())
+                        v.layer[k].render(busL[k].data() + done, busR[k].data() + done, m, v.cur, &params[size_t(lp(k, 0))]);
             }
             done += m;
         }
         const float* P = params.data();
-        chorus.process(L, R, n, P[gp(G_ChorusMix)], P[gp(G_ChorusRate)]);
-        delay.process(L, R, n, P[gp(G_DelayTime)], P[gp(G_DelayFB)], P[gp(G_DelayMix)]);
-        reverb.process(L, R, n, P[gp(G_RevSize)], P[gp(G_RevDamp)], P[gp(G_RevMix)]);
+        // Per-layer racks, then sum, then the common rack.
+        for (int k = 0; k < kNumLayers; ++k)
+            for (int i = 0; i < kRackSlots[k]; ++i) {
+                const int s = fxSlot(k, i);
+                slots[s].process(busL[k].data(), busR[k].data(), n, &P[fxp(s, S_Type)]);
+            }
+        for (int i = 0; i < n; ++i) { L[i] = busL[0][size_t(i)] + busL[1][size_t(i)]; R[i] = busR[0][size_t(i)] + busR[1][size_t(i)]; }
+        for (int i = 0; i < kRackSlots[R_Common]; ++i) {
+            const int s = fxSlot(R_Common, i);
+            slots[s].process(L, R, n, &P[fxp(s, S_Type)]);
+        }
+        // Master: DC blocker (safety net for engine/filter DC) -> gain -> soft limiter.
         const float g = dbToGain(P[gp(G_Gain)]);
-        for (int i = 0; i < n; ++i) { L[i] = fastTanh(L[i] * g); R[i] = fastTanh(R[i] * g); }
+        for (int i = 0; i < n; ++i) { L[i] = fastTanh(masterDcL.tick(L[i]) * g); R[i] = fastTanh(masterDcR.tick(R[i]) * g); }
     }
+public:
 
 private:
     struct Voice {
@@ -223,7 +259,9 @@ private:
     };
     std::array<float, kNumParams> params {};
     Voice voices[kMaxVoices];
-    Chorus chorus; PingPongDelay delay; FdnReverb reverb;
+    FxSlot slots[kNumFxSlots];
+    DcBlock masterDcL, masterDcR;
+    std::vector<float> busL[kNumLayers], busR[kNumLayers];
     Rng seedRng { 0xC0FFEEu };
     float sr = 48000;
     uint64_t ageCounter = 0;

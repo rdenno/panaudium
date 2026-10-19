@@ -3,10 +3,10 @@
 #include "../dsp/Presets.h"
 #include "../dsp/Synth.h"
 
-class PanaudiumProcessor : public juce::AudioProcessor {
+class PanaudiumProcessor : public juce::AudioProcessor, private juce::Timer {
 public:
     PanaudiumProcessor();
-    ~PanaudiumProcessor() override = default;
+    ~PanaudiumProcessor() override { stopTimer(); }
 
     void prepareToPlay(double sampleRate, int samplesPerBlock) override;
     void releaseResources() override {}
@@ -34,9 +34,15 @@ public:
     juce::AudioProcessorValueTreeState apvts;
 
 private:
-    static juce::AudioProcessorValueTreeState::ParameterLayout createLayout();
+    juce::AudioProcessorValueTreeState::ParameterLayout createLayout();
+    juce::String paramText(int index, float value) const;
+    float paramFromText(int index, const juce::String& text) const;
+    void timerCallback() override { preloadCurrentFx(); }
+    // Creates FX units for the current slot types off the audio thread (see op::FxSlot).
+    void preloadCurrentFx();
     std::unique_ptr<op::Synth> synth;
     std::vector<std::atomic<float>*> raw;
     int currentProgram = 0;
+    std::atomic<op::Synth*> liveSynth { nullptr };
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PanaudiumProcessor)
 };

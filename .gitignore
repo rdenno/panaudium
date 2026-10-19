@@ -4,3 +4,5 @@ renders/
 __pycache__/
 *.wav
 .vs/
+dist/
+analysis/out/

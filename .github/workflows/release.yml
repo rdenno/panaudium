@@ -1,0 +1,67 @@
+name: Build and release
+
+on:
+  push:
+    tags: [ "v*" ]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Existing tag to (re)build and attach assets to, e.g. v0.2.0"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    env:
+      TAG: ${{ github.event.inputs.tag || github.ref_name }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.tag || github.ref }}
+
+      - name: Configure (fetches JUCE 8.0.8)
+        run: cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+
+      - name: Build plugin, standalone and test tools
+        run: cmake --build build --config Release --target Panaudium_VST3 Panaudium_Standalone panaudium_render panaudium_hosttest --parallel
+
+      - name: FX torture test
+        run: |
+          New-Item -ItemType Directory -Force fxtest | Out-Null
+          & build\Release\panaudium_render.exe fxtest --fxtest
+          if ($LASTEXITCODE -ne 0) { Write-Warning "fxtest flagged settings (see log)" }
+
+      - name: Headless host test (loads the VST3 like a DAW)
+        run: |
+          & build\panaudium_hosttest_artefacts\Release\panaudium_hosttest.exe build\Panaudium_artefacts\Release\VST3\Panaudium.vst3 hosttest
+          if ($LASTEXITCODE -ne 0) { exit 1 }
+
+      - name: pluginval (strictness 5)
+        run: |
+          Invoke-WebRequest https://github.com/Tracktion/pluginval/releases/download/v1.0.4/pluginval_Windows.zip -OutFile pluginval.zip
+          Expand-Archive pluginval.zip -DestinationPath pluginval
+          & pluginval\pluginval.exe --strictness-level 5 --validate-in-process --validate build\Panaudium_artefacts\Release\VST3\Panaudium.vst3
+          if ($LASTEXITCODE -ne 0) { exit 1 }
+
+      - name: Package installer and zip
+        run: |
+          choco install innosetup -y --no-progress
+          $ver = $env:TAG.TrimStart('v')
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" /DAppVersion=$ver /DBuildDir=..\build installer\panaudium.iss
+          New-Item -ItemType Directory -Force dist\zip | Out-Null
+          Copy-Item -Recurse build\Panaudium_artefacts\Release\VST3\Panaudium.vst3 dist\zip\
+          Copy-Item build\Panaudium_artefacts\Release\Standalone\Panaudium.exe dist\zip\
+          Copy-Item LICENSE, README.md dist\zip\
+          Compress-Archive -Path dist\zip\* -DestinationPath "dist\Panaudium-$ver-Windows-x64.zip" -Force
+
+      - name: Publish release assets
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $assets = Get-ChildItem dist\*.exe, dist\*.zip | ForEach-Object { $_.FullName }
+          gh release view $env:TAG *> $null
+          if ($LASTEXITCODE -eq 0) { gh release upload $env:TAG @assets --clobber }
+          else { gh release create $env:TAG @assets --title "Panaudium $env:TAG" --notes "Automated Windows build. See README for details." }

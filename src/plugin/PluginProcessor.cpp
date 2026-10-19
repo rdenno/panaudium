@@ -12,7 +12,8 @@ static juce::NormalisableRange<float> makeRange(const ParamDef& d) {
 
 juce::AudioProcessorValueTreeState::ParameterLayout PanaudiumProcessor::createLayout() {
     juce::AudioProcessorValueTreeState::ParameterLayout layout;
-    for (const auto& d : buildParamDefs()) {
+    static const auto defs = buildParamDefs();
+    for (const auto& d : defs) {
         const juce::ParameterID pid(d.id, 1);
         if (!d.choices.empty()) {
             juce::StringArray c; for (auto& s : d.choices) c.add(s);
@@ -20,10 +21,47 @@ juce::AudioProcessorValueTreeState::ParameterLayout PanaudiumProcessor::createLa
         } else if (d.isInt) {
             layout.add(std::make_unique<juce::AudioParameterInt>(pid, d.name, int(d.min), int(d.max), int(d.def)));
         } else {
-            layout.add(std::make_unique<juce::AudioParameterFloat>(pid, d.name, makeRange(d), d.def));
+            const int index = int(&d - defs.data());
+            auto attrs = juce::AudioParameterFloatAttributes()
+                .withStringFromValueFunction([this, index](float v, int) { return paramText(index, v); })
+                .withValueFromStringFunction([this, index](const juce::String& t) { return paramFromText(index, t); });
+            layout.add(std::make_unique<juce::AudioParameterFloat>(pid, d.name, makeRange(d), d.def, attrs));
         }
     }
     return layout;
+}
+
+// FX slot knobs (index >= kFxParamBase, slot param >= S_K1) format through the unit currently in their slot.
+static int fxKnobOf(int index, int& slot) {
+    if (index < kFxParamBase) return -1;
+    slot = (index - kFxParamBase) / S_NumSlotParams;
+    const int p = (index - kFxParamBase) % S_NumSlotParams;
+    return p >= S_K1 ? p - S_K1 : -1;
+}
+
+juce::String PanaudiumProcessor::paramText(int index, float value) const {
+    static const auto defs = buildParamDefs();
+    int slot = 0;
+    const int k = fxKnobOf(index, slot);
+    if (k >= 0) {
+        const int type = raw.size() > size_t(fxp(slot, S_Type)) ? int(raw[size_t(fxp(slot, S_Type))]->load() + 0.5f) : 0;
+        const FxKnob& kn = fxKnob(type, k);
+        if (!kn.name) return "-";
+        return formatValue(kn.value(value), kn.unit);
+    }
+    return formatValue(value, defs[size_t(index)].unit);
+}
+
+float PanaudiumProcessor::paramFromText(int index, const juce::String& text) const {
+    static const auto defs = buildParamDefs();
+    int slot = 0;
+    const int k = fxKnobOf(index, slot);
+    if (k >= 0) {
+        const int type = raw.size() > size_t(fxp(slot, S_Type)) ? int(raw[size_t(fxp(slot, S_Type))]->load() + 0.5f) : 0;
+        const FxKnob& kn = fxKnob(type, k);
+        return kn.name ? kn.norm(parseValue(text.toStdString(), kn.unit)) : 0.5f;
+    }
+    return parseValue(text.toStdString(), defs[size_t(index)].unit);
 }
 
 PanaudiumProcessor::PanaudiumProcessor()
@@ -31,7 +69,17 @@ PanaudiumProcessor::PanaudiumProcessor()
       apvts(*this, nullptr, "Panaudium", createLayout()),
       synth(std::make_unique<Synth>()) {
     for (const auto& d : buildParamDefs()) raw.push_back(apvts.getRawParameterValue(d.id));
+    liveSynth = synth.get();
     setCurrentProgram(0);
+    startTimerHz(20);
+}
+
+void PanaudiumProcessor::preloadCurrentFx() {
+    if (auto* s = liveSynth.load()) {
+        float p[kNumParams];
+        for (int i = 0; i < kNumParams; ++i) p[i] = raw[size_t(i)]->load();
+        s->preloadFx(p);
+    }
 }
 
 bool PanaudiumProcessor::isBusesLayoutSupported(const BusesLayout& layouts) const {
@@ -39,8 +87,12 @@ bool PanaudiumProcessor::isBusesLayoutSupported(const BusesLayout& layouts) cons
 }
 
 void PanaudiumProcessor::prepareToPlay(double sampleRate, int) {
-    synth = std::make_unique<Synth>();
-    synth->prepare(float(sampleRate));
+    auto fresh = std::make_unique<Synth>();
+    for (int i = 0; i < kNumParams; ++i) fresh->setParam(i, raw[size_t(i)]->load());
+    fresh->prepare(float(sampleRate));   // also preloads the FX units the current settings use
+    { float p[kNumParams]; for (int i = 0; i < kNumParams; ++i) p[i] = raw[size_t(i)]->load(); fresh->primeFx(p); }
+    liveSynth = fresh.get();
+    synth = std::move(fresh);
 }
 
 void PanaudiumProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midi) {
@@ -68,6 +120,7 @@ void PanaudiumProcessor::setCurrentProgram(int index) {
     const auto& bank = factoryPresets();
     if (index < 0 || index >= int(bank.size())) return;
     currentProgram = index;
+    if (auto* s = liveSynth.load()) s->primeFx(bank[size_t(index)].v.data());   // builds IRs etc. off the audio thread
     const auto defs = buildParamDefs();
     for (int i = 0; i < kNumParams; ++i)
         if (auto* p = apvts.getParameter(defs[size_t(i)].id))
@@ -92,6 +145,7 @@ void PanaudiumProcessor::setStateInformation(const void* data, int sizeInBytes) 
         if (tree.hasType(apvts.state.getType())) {
             currentProgram = tree.getProperty("program", 0);
             apvts.replaceState(tree);
+            if (auto* s = liveSynth.load()) { float p[kNumParams]; for (int i = 0; i < kNumParams; ++i) p[i] = raw[size_t(i)]->load(); s->primeFx(p); }
         }
     }
 }

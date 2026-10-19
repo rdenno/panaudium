@@ -1,0 +1,116 @@
+file,name,category,lufs_i,lufs_st_max,peak_db,true_peak_db,trim_db
+01_Glass_Cathedral.wav,Glass Cathedral,Pad,-17.99,-12.54,-5.68,-5.68,-0.0
+02_Choir_of_Ghosts.wav,Choir of Ghosts,Pad,-18.00,-12.59,-6.62,-6.61,-0.0
+03_Aurora_Granules.wav,Aurora Granules,Pad,-18.03,-12.15,-6.56,-6.56,0.0
+04_Analog_Dreams.wav,Analog Dreams,Pad,-17.96,-13.78,-7.27,-7.26,-0.0
+05_Singing_Bowl_Drone.wav,Singing Bowl Drone,Pad,-17.99,-13.27,-7.92,-7.91,-0.0
+06_Hyper_Saw_Supernova.wav,Hyper Saw Supernova,Pad,-17.96,-13.56,-7.07,-7.07,-0.0
+07_Glass_Harmonica.wav,Glass Harmonica,Pad,-17.97,-13.22,-7.87,-7.86,-0.0
+08_Alien_Choir.wav,Alien Choir,Pad,-18.02,-12.41,-7.25,-7.24,0.0
+09_Harp_of_Wire.wav,Harp of Wire,Pluck,-17.98,-15.38,-1.10,-0.33,-0.0
+10_Nylon_Pluck.wav,Nylon Pluck,Pluck,-18.02,-15.46,-0.14,-0.12,0.0
+11_Koto_Steel.wav,Koto Steel,Pluck,-18.00,-15.72,-1.14,-0.86,0.0
+12_Sitar_Buzz.wav,Sitar Buzz,Pluck,-18.04,-16.57,-3.26,-2.68,0.0
+13_Marimba_Hall.wav,Marimba Hall,Mallet,-18.05,-13.70,-4.48,-4.47,0.0
+14_Vibraphone.wav,Vibraphone,Mallet,-18.02,-13.19,-6.31,-6.30,0.0
+15_Church_Bells.wav,Church Bells,Mallet,-18.02,-11.80,-5.63,-5.62,0.0
+16_Tubular_Chimes.wav,Tubular Chimes,Mallet,-18.00,-13.20,-6.41,-6.41,-0.0
+17_Tibetan_Bowl.wav,Tibetan Bowl,Mallet,-18.04,-13.28,-6.99,-6.98,0.0
+18_Kalimba.wav,Kalimba,Mallet,-17.96,-13.75,-1.01,-0.99,-0.0
+19_FM_Tine_Piano.wav,FM Tine Piano,Keys,-17.96,-13.47,-3.45,-3.44,-0.0
+20_Hollow_Organ.wav,Hollow Organ,Keys,-18.01,-11.71,-5.44,-5.44,0.0
+21_Ladder_Bass.wav,Ladder Bass,Bass,-18.00,-13.36,-5.93,-5.93,0.0
+22_Plucked_Upright.wav,Plucked Upright,Bass,-18.03,-12.60,-6.45,-6.44,0.0
+23_Formant_Growl.wav,Formant Growl,Bass,-18.01,-13.68,-6.38,-6.38,0.0
+24_Bowed_Cello.wav,Bowed Cello,Strings,-18.01,-13.55,-8.98,-8.98,0.0
+25_String_Ensemble.wav,String Ensemble,Strings,-17.98,-12.26,-7.33,-7.32,-0.0
+26_Sync_Lead.wav,Sync Lead,Lead,-17.96,-16.46,-9.51,-9.44,-0.0
+27_Breathy_Flute.wav,Breathy Flute,Wind,-17.95,-14.19,-12.24,-12.23,-0.0
+28_Shakuhachi.wav,Shakuhachi,Wind,-18.02,-14.49,-11.74,-11.73,0.0
+29_Pan_Pipes.wav,Pan Pipes,Wind,-17.96,-13.62,-11.08,-11.07,-0.0
+30_Soprano_Aah.wav,Soprano Aah,Vocal,-18.03,-13.05,-7.28,-7.26,0.0
+31_Robot_Vowels.wav,Robot Vowels,Vocal,-17.97,-13.96,-9.20,-9.19,-0.0
+32_Ocean_Wind.wav,Ocean Wind,Atmos,-18.01,-13.56,-5.83,-5.82,0.0
+33_Whistling_Wind.wav,Whistling Wind,Atmos,-18.03,-14.03,-7.21,-7.21,0.0
+34_Metal_Pipe_Drone.wav,Metal Pipe Drone,Atmos,-17.95,-13.26,-7.19,-7.17,-0.0
+35_Granular_Swarm.wav,Granular Swarm,Atmos,-17.99,-12.96,-6.53,-6.53,-0.0
+36_Vocal_Choir_Osmosis.wav,Vocal Choir Osmosis,Pad,-18.02,-12.65,-6.22,-6.21,0.0
+37_Bowed_Crystal_Glass.wav,Bowed Crystal Glass,Pad,-18.01,-12.97,-7.28,-7.28,0.0
+38_Solar_Flare_Phaser.wav,Solar Flare Phaser,Pad,-17.96,-12.96,-6.77,-6.76,-0.0
+39_Granular_Shimmer_Clouds.wav,Granular Shimmer Clouds,Pad,-18.00,-12.70,-7.34,-7.34,-0.0
+40_Dark_Additive_Obelisk.wav,Dark Additive Obelisk,Pad,-18.04,-12.18,-7.05,-7.04,0.0
+41_Crystalline_Shimmer_Spire.wav,Crystalline Shimmer Spire,Pad,-17.97,-13.33,-5.03,-5.02,-0.0
+42_Cassette_Memory_Tape.wav,Cassette Memory Tape,Pad,-18.02,-13.21,-6.91,-6.79,0.0
+43_Celestial_String_Solina.wav,Celestial String Solina,Pad,-17.99,-13.25,-7.12,-7.11,-0.0
+44_Broken_Window_Howl.wav,Broken Window Howl,Atmos,-18.00,-13.54,-7.93,-7.92,0.0
+45_Distant_Factory_Drone.wav,Distant Factory Drone,Atmos,-18.05,-12.89,-5.38,-5.37,0.0
+46_Submerged_Ocean_Trench.wav,Submerged Ocean Trench,Atmos,-18.01,-11.88,-7.43,-7.42,0.0
+47_Shortwave_Ghost_Radios.wav,Shortwave Ghost Radios,Atmos,-18.01,-14.61,-7.34,-7.29,0.0
+48_Cavern_of_Cold_Drips.wav,Cavern of Cold Drips,Atmos,-18.02,-13.00,-8.42,-8.42,0.0
+49_Glass_Harmonica_Squall.wav,Glass Harmonica Squall,Atmos,-17.97,-13.33,-7.27,-7.26,-0.0
+50_Tanpura_Resonance_Drone.wav,Tanpura Resonance Drone,Drone,-18.01,-12.71,-3.25,-2.81,0.0
+51_Monastery_Crypt_Chant.wav,Monastery Crypt Chant,Drone,-18.00,-12.66,-8.27,-8.26,-0.0
+52_Gong_Wash_Horizon.wav,Gong Wash Horizon,Drone,-18.00,-10.94,-10.87,-10.87,0.0
+53_Abyssal_Sub_Resonator.wav,Abyssal Sub Resonator,Drone,-18.04,-12.24,-7.68,-7.67,0.0
+54_Singing_Steel_Plate.wav,Singing Steel Plate,Drone,-18.05,-12.48,-7.95,-7.94,0.0
+55_Insectoid_Swarm.wav,Insectoid Swarm,Texture,-17.97,-14.52,-7.42,-7.34,-0.0
+56_Dust_and_Vinyl_Embers.wav,Dust and Vinyl Embers,Texture,-18.02,-13.62,-4.35,-3.92,0.0
+57_Galleon_Timber_Creak.wav,Galleon Timber Creak,Texture,-18.03,-14.43,-6.27,-6.26,0.0
+58_Rain_on_Zinc_Roof.wav,Rain on Zinc Roof,Texture,-17.99,-14.36,-6.88,-6.87,-0.0
+59_Polar_Needle_Frost.wav,Polar Needle Frost,Texture,-17.99,-13.15,-7.42,-7.40,-0.0
+60_Bowed_Wire_Friction.wav,Bowed Wire Friction,Texture,-17.93,-13.06,-8.21,-8.19,-0.1
+61_Braam_of_Doom.wav,Braam of Doom,Cinematic,-18.03,-14.39,-8.64,-8.64,0.0
+62_Tension_String_Cluster.wav,Tension String Cluster,Cinematic,-17.99,-14.51,-8.66,-8.64,-0.0
+63_Horror_Scrape_Agony.wav,Horror Scrape Agony,Cinematic,-18.04,-14.68,-8.38,-8.36,0.0
+64_Titan_Colossus_Impact.wav,Titan Colossus Impact,Cinematic,-17.98,-12.63,-4.71,-4.71,-0.0
+65_Rising_Ascension_Swell.wav,Rising Ascension Swell,Cinematic,-18.03,-13.29,-5.36,-5.34,0.0
+66_Stutter_Gate_Choir.wav,Stutter Gate Choir,Pulse,-17.99,-13.51,-5.24,-5.23,-0.0
+67_Pumping_Saw_Thruster.wav,Pumping Saw Thruster,Pulse,-18.04,-13.75,-5.69,-5.69,0.0
+68_Stuttering_Granular_Cascade.wav,Stuttering Granular Cascade,Pulse,-17.96,-12.02,-2.45,-2.45,-0.0
+69_Tremolo_Telecaster_Pluck.wav,Tremolo Telecaster Pluck,Pulse,-18.02,-11.56,-0.94,-0.84,0.0
+70_Rotary_Pulsar_Organ.wav,Rotary Pulsar Organ,Pulse,-18.02,-13.79,-9.55,-9.55,0.0
+71_Hyper_Zap_Annihilator.wav,Hyper Zap Annihilator,FX,-20.08,-17.87,-3.63,-3.35,2.1
+72_Cyber_Berserker.wav,Cyber Berserker,FX,-18.02,-14.33,-8.82,-8.81,0.0
+73_Sci_Fi_Comm_Bleeps.wav,Sci-Fi Comm Bleeps,FX,-18.03,-17.63,-1.96,-1.93,0.0
+74_Alien_Carrier_Spiral.wav,Alien Carrier Spiral,FX,-17.97,-15.11,-3.68,-3.68,-0.0
+75_Vortex_Downlifter.wav,Vortex Downlifter,FX,-18.04,-11.96,-7.30,-7.25,0.0
+76_Suitcase_Seventy_Three.wav,Suitcase Seventy-Three,Keys,-17.98,-16.66,-3.76,-3.70,-0.0
+77_Wurlitzer_Reed.wav,Wurlitzer Reed,Keys,-17.97,-13.75,-9.82,-9.81,-0.0
+78_Funky_D6_Clav.wav,Funky D6 Clav,Keys,-18.00,-16.13,-3.91,-3.86,-0.0
+79_B3_Gospel_Spinner.wav,B3 Gospel Spinner,Keys,-17.96,-12.24,-6.67,-6.66,-0.0
+80_Cellar_Toy_Piano.wav,Cellar Toy Piano,Keys,-18.02,-14.48,-8.18,-8.12,0.0
+81_Nordic_Felt_Piano.wav,Nordic Felt Piano,Keys,-18.04,-12.46,-5.76,-5.75,0.0
+82_Deep_808_Boom.wav,Deep 808 Boom,Bass,-18.00,-4.58,-0.71,-0.71,0.0
+83_Neuro_Reese_Bass.wav,Neuro Reese Bass,Bass,-17.96,-6.99,-3.33,-3.32,-0.0
+84_Acoustic_Double_Bass.wav,Acoustic Double Bass,Bass,-17.96,-14.32,-7.33,-7.32,-0.0
+85_Slap_Funk_Thumb.wav,Slap Funk Thumb,Bass,-17.98,-14.20,-4.79,-4.27,-0.0
+86_Acid_Squelch_303.wav,Acid Squelch 303,Bass,-17.98,-13.06,-8.69,-8.69,-0.0
+87_Fretless_Warmth.wav,Fretless Warmth,Bass,-17.99,-10.06,-4.16,-4.15,-0.0
+88_Subterranean_Growl.wav,Subterranean Growl,Bass,-17.98,-3.51,-2.26,-2.26,-0.0
+89_Screaming_Sync_Lead.wav,Screaming Sync Lead,Lead,-17.95,-15.53,-10.95,-10.94,-0.0
+90_Whistling_Shepherd.wav,Whistling Shepherd,Lead,-18.01,-13.82,-10.20,-10.20,0.0
+91_Arcade_Hero_Square.wav,Arcade Hero Square,Lead,-17.98,-14.08,-11.12,-11.10,-0.0
+92_Operatic_Formant_Lead.wav,Operatic Formant Lead,Lead,-18.05,-13.85,-6.90,-6.87,0.0
+93_Solitary_Cello_Lead.wav,Solitary Cello Lead,Lead,-18.06,-12.97,-8.93,-8.92,0.1
+94_Ring_Mod_Cry_Baby.wav,Ring Mod Cry Baby,Lead,-17.97,-14.05,-5.33,-5.32,-0.0
+95_Appalachian_Banjo.wav,Appalachian Banjo,Pluck,-18.03,-17.06,-8.25,-8.25,0.0
+96_Muted_Nashville_Twin.wav,Muted Nashville Twin,Pluck,-18.00,-16.30,-0.41,-0.40,0.0
+97_Celtic_Concert_Harp.wav,Celtic Concert Harp,Pluck,-17.98,-14.75,-1.66,-0.62,-0.0
+98_Orchestral_Pizzicato.wav,Orchestral Pizzicato,Pluck,-18.01,-15.45,-0.61,-0.55,0.0
+99_Glassy_Prism_Pluck.wav,Glassy Prism Pluck,Pluck,-18.01,-15.14,-1.86,-0.70,0.0
+100_Rosewood_Xylophone.wav,Rosewood Xylophone,Mallet,-17.96,-14.08,-1.51,-1.50,-0.0
+101_Orchestral_Glockenspiel.wav,Orchestral Glockenspiel,Mallet,-17.96,-14.98,-5.11,-5.11,-0.0
+102_Trinidad_Steel_Drum.wav,Trinidad Steel Drum,Mallet,-17.97,-12.78,-3.08,-3.07,-0.0
+103_Handpan_Meditation.wav,Handpan Meditation,Mallet,-18.01,-12.90,-6.12,-6.10,0.0
+104_Varanasi_Sitar_Drone.wav,Varanasi Sitar Drone,World,-17.94,-14.55,-5.20,-5.19,-0.1
+105_Kyoto_Silk_Koto.wav,Kyoto Silk Koto,World,-17.97,-15.69,-2.13,-2.03,-0.0
+106_Bamboo_Shakuhachi_Zen.wav,Bamboo Shakuhachi Zen,World,-18.00,-11.95,-7.17,-7.16,0.0
+107_Outback_Didgeridoo.wav,Outback Didgeridoo,World,-18.00,-10.31,-5.60,-5.59,0.0
+108_Highland_Bagpipe_Drone.wav,Highland Bagpipe Drone,World,-17.96,-12.73,-7.18,-7.17,-0.0
+109_Vintage_Brass_Stab.wav,Vintage Brass Stab,Brass,-18.03,-14.62,-7.19,-7.19,0.0
+110_Miles_Muted_Trumpet.wav,Miles Muted Trumpet,Brass,-18.04,-13.58,-7.47,-7.46,0.0
+111_Noble_French_Horns.wav,Noble French Horns,Brass,-18.02,-13.87,-8.60,-8.59,0.0
+112_Sub_Kick_Drum.wav,Sub Kick Drum,Percussion,-17.86,-10.65,-0.00,0.00,-0.1
+113_Acoustic_Wood_Snare.wav,Acoustic Wood Snare,Percussion,-18.05,-15.83,-2.30,-2.30,0.1
+114_Crisp_Studio_Hi_Hat.wav,Crisp Studio Hi-Hat,Percussion,-18.00,-18.29,-1.01,-0.60,-0.0
+115_Tribal_Conga_Slap.wav,Tribal Conga Slap,Percussion,-17.99,-13.13,-1.90,-1.89,-0.0

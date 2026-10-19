@@ -2,9 +2,11 @@
 #pragma once
 #include <array>
 #include <functional>
+#include <initializer_list>
 #include <string>
 #include <vector>
 #include "Params.h"
+#include "Dsp.h"
 
 namespace op {
 
@@ -31,22 +33,46 @@ public:
     PresetBuilder& uniB(int n, float det, float spread) { return B(L_UniVoices, float(n)).B(L_UniDetune, det).B(L_UniSpread, spread); }
     PresetBuilder& oscA(int engine, float timbre, float shape, float chr) { return A(L_Engine, float(engine)).A(L_Timbre, timbre).A(L_Shape, shape).A(L_Char, chr); }
     PresetBuilder& oscB(int engine, float timbre, float shape, float chr) { return B(L_Engine, float(engine)).B(L_Timbre, timbre).B(L_Shape, shape).B(L_Char, chr); }
-    PresetBuilder& rev(float mix, float size, float damp = 0.4f) { return G(G_RevMix, mix).G(G_RevSize, size).G(G_RevDamp, damp); }
-    PresetBuilder& dly(float mix, float time, float fb) { return G(G_DelayMix, mix).G(G_DelayTime, time).G(G_DelayFB, fb); }
+    // Put a unit in an FX slot. `real` gives knob values in real-world units (as listed in
+    // fx/FxUnit.h, e.g. Hz, dB, s; percent knobs as 0..1); missing or NaN entries keep the unit's default.
+    // Common-rack convention used by the helpers below: slot 0 free (drive/EQ/etc.), 1 chorus/mod,
+    // 2 delay, 3 reverb.
+    PresetBuilder& fx(int rack, int idx, int type, int model, float mix, std::initializer_list<float> real = {}) {
+        const int s = fxSlot(rack, idx);
+        p.v[size_t(fxp(s, S_Type))] = float(type);
+        p.v[size_t(fxp(s, S_On))] = 1.f;
+        p.v[size_t(fxp(s, S_Mix))] = mix;
+        p.v[size_t(fxp(s, S_Model))] = float(model);
+        for (int k = 0; k < kFxKnobs; ++k) {
+            const FxKnob& kn = fxKnob(type, k);
+            float n = kn.name ? kn.defNorm() : 0.5f;
+            if (size_t(k) < real.size()) { const float v = *(real.begin() + k); if (v == v) n = kn.norm(v); }
+            p.v[size_t(fxp(s, S_K1 + k))] = n;
+        }
+        return *this;
+    }
+    PresetBuilder& noFx(int rack, int idx) { p.v[size_t(fxp(fxSlot(rack, idx), S_Type))] = float(FX_Off); return *this; }
+    // Legacy helpers (the first bank was written against a fixed chorus -> delay -> reverb chain).
+    PresetBuilder& rev(float mix, float size, float damp = 0.4f) {
+        if (mix <= 0.f) return noFx(R_Common, 3);
+        return fx(R_Common, 3, FX_ProVerb, 1, mix, { size, 0.4f + size * size * 14.f, 20.f, 0.7f, 0.f, lerpf(2.f, -10.f, damp) });
+    }
+    PresetBuilder& dly(float mix, float time, float fb) { return fx(R_Common, 2, FX_Delay, 2, mix, { time, fb }); }
+    PresetBuilder& chorus(float mix, float rate = 0.6f) { return fx(R_Common, 1, FX_Chorus, 0, mix, { rate }); }
     Preset done() const { return p; }
 private:
     Preset p;
 };
 
-inline const std::vector<Preset>& factoryPresets() {
-    static const std::vector<Preset> bank = [] {
-        std::vector<Preset> b;
+// Bank 1: the original 35 presets.
+inline void addBank1(std::vector<Preset>& b) {
+    {
         using PB = PresetBuilder;
         // ---------------------------------------------------------------- Pads
         b.push_back(PB("Glass Cathedral", "Pad")
             .oscA(E_Modal, 0.66f, 0.6f, 0.75f).A(L_Octave, -1).A(L_Noise, 0.12f).uniA(3, 6, 0.8f).filtA(F_LP24, 9000, 0.1f).ampA(0.01f, 4, 0.6f, 4)
             .oscB(E_Spectral, 0.4f, 0.3f, 0.1f).B(L_Drift, 0.7f).uniB(4, 15, 0.9f).B(L_Level, 0.55f).filtB(F_LP12, 7000, 0.1f).ampB(2.5f, 1, 1, 5)
-            .G(G_ChorusMix, 0.3f).rev(0.45f, 0.85f).done());
+            .chorus(0.3f).rev(0.45f, 0.85f).done());
         b.push_back(PB("Choir of Ghosts", "Pad")
             .oscA(E_Vocal, 0.0f, 0.45f, 0.35f).A(L_L2Timbre, 0.45f).A(L_L2Rate, 0.08f).uniA(5, 18, 1).A(L_Drift, 0.4f).A(L_FiltType, F_Off).ampA(1.2f, 1, 1, 3)
             .oscB(E_Atmos, 0.55f, 0.9f, 0.6f).B(L_Level, 0.3f).B(L_FiltType, F_Off).ampB(2, 1, 1, 3)
@@ -57,7 +83,7 @@ inline const std::vector<Preset>& factoryPresets() {
             .dly(0.25f, 0.5f, 0.5f).rev(0.5f, 0.8f).done());
         b.push_back(PB("Analog Dreams", "Pad")
             .oscA(E_VA, 0.0f, 0.5f, 0).uniA(7, 22, 0.9f).A(L_Drift, 0.3f).filtA(F_LP24, 1800, 0.25f).A(L_FiltEnv, 2).A(L_FA, 1.5f).A(L_FD, 3).A(L_FS, 0.4f).ampA(0.8f, 1, 1, 2.5f)
-            .G(G_ChorusMix, 0.5f).rev(0.3f, 0.6f).done());
+            .chorus(0.5f).rev(0.3f, 0.6f).done());
         b.push_back(PB("Singing Bowl Drone", "Pad")
             .oscA(E_Bowed, 0.4f, 0.15f, 0.9f).uniA(3, 7, 0.7f).filtA(F_LP12, 5000, 0.1f).ampA(1.2f, 1, 1, 3).A(L_Level, 0.6f)
             .oscB(E_Modal, 0.95f, 0.2f, 0.95f).B(L_Noise, 0.7f).B(L_Octave, 1).filtB(F_Off, 20000, 0).ampB(2, 1, 1, 5)
@@ -65,7 +91,7 @@ inline const std::vector<Preset>& factoryPresets() {
         b.push_back(PB("Hyper Saw Supernova", "Pad")
             .oscA(E_VA, 0.0f, 0.5f, 0).uniA(8, 35, 1).A(L_Drift, 0.25f).filtA(F_LP24, 8000, 0.15f).ampA(0.05f, 1, 1, 1.5f)
             .oscB(E_Spectral, 0.15f, 0.2f, 0).B(L_Octave, -1).B(L_Level, 0.5f).ampB(0.05f, 1, 1, 1.5f)
-            .G(G_ChorusMix, 0.4f).rev(0.4f, 0.7f).done());
+            .chorus(0.4f).rev(0.4f, 0.7f).done());
         b.push_back(PB("Glass Harmonica", "Pad")
             .oscA(E_Spectral, 0.45f, 0.8f, 0.35f).A(L_Drift, 0.5f).uniA(2, 4, 0.6f).filtA(F_Off, 20000, 0).ampA(0.35f, 1, 1, 2)
             .oscB(E_Modal, 0.2f, 0.3f, 0.9f).B(L_Noise, 0.5f).B(L_Level, 0.5f).filtB(F_Off, 20000, 0).ampB(0.4f, 1, 1, 2)
@@ -110,7 +136,7 @@ inline const std::vector<Preset>& factoryPresets() {
         b.push_back(PB("FM Tine Piano", "Keys")
             .oscA(E_VA, 1.0f, 0.5f, 0).A(L_FMDepth, 0.38f).A(L_FMRatio, 1).filtA(F_LP12, 2500, 0.05f).A(L_FiltEnv, 2.5f).A(L_FD, 1.2f).A(L_FS, 0.1f).ampA(0.002f, 2.5f, 0.15f, 0.5f)
             .oscB(E_VA, 1.0f, 0.5f, 0).B(L_FMDepth, 0.3f).B(L_FMRatio, 7).B(L_Level, 0.35f).B(L_FiltType, F_Off).ampB(0.001f, 0.25f, 0, 0.2f)
-            .G(G_ChorusMix, 0.35f).rev(0.25f, 0.5f).done());
+            .chorus(0.35f).rev(0.25f, 0.5f).done());
         b.push_back(PB("Hollow Organ", "Keys")
             .oscA(E_Spectral, 0.3f, 0.9f, 0).uniA(2, 4, 0.5f).A(L_FiltType, F_Off).A(L_Drift, 0.05f).ampA(0.01f, 1, 1, 0.15f)
             .oscB(E_Spectral, 0.5f, 0.0f, 0).B(L_Octave, 1).B(L_Level, 0.35f).B(L_L2Pan, 0.8f).B(L_L2Rate, 6).B(L_FiltType, F_Off).ampB(0.01f, 1, 1, 0.15f)
@@ -131,7 +157,7 @@ inline const std::vector<Preset>& factoryPresets() {
             .rev(0.3f, 0.6f).done());
         b.push_back(PB("String Ensemble", "Strings")
             .oscA(E_Bowed, 0.45f, 0.2f, 0.75f).uniA(4, 10, 0.9f).A(L_Drift, 0.3f).filtA(F_LP12, 5000, 0.05f).ampA(0.4f, 1, 1, 1)
-            .G(G_ChorusMix, 0.3f).rev(0.4f, 0.75f).done());
+            .chorus(0.3f).rev(0.4f, 0.75f).done());
         // ---------------------------------------------------------------- Leads, winds, voices
         b.push_back(PB("Sync Lead", "Lead")
             .oscA(E_VA, 0.05f, 0.5f, 0.75f).uniA(2, 6, 0.4f).filtA(F_LP24, 6000, 0.15f).A(L_L1Pitch, 0.15f).A(L_L1Rate, 5.5f).ampA(0.005f, 1, 0.9f, 0.3f)
@@ -164,6 +190,22 @@ inline const std::vector<Preset>& factoryPresets() {
         b.push_back(PB("Granular Swarm", "Atmos")
             .oscA(E_Granular, 1.0f, 0.15f, 0.9f).A(L_FMDepth, 0.8f).uniA(2, 0, 1).A(L_L2Pan, 0.7f).A(L_L2Rate, 0.4f).filtA(F_LP12, 9000, 0.1f).ampA(0.8f, 1, 1, 3)
             .dly(0.3f, 0.45f, 0.55f).rev(0.5f, 0.85f).done());
+    }
+}
+
+} // namespace op
+
+#include "presets/Bank2.h"
+#include "presets/Bank3.h"
+#include "presets/Trims.h"
+
+namespace op {
+
+inline const std::vector<Preset>& factoryPresets() {
+    static const std::vector<Preset> bank = [] {
+        std::vector<Preset> b;
+        addBank1(b); addBank2(b); addBank3(b);
+        applyLoudnessTrims(b);
         return b;
     }();
     return bank;
