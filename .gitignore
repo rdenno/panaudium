@@ -1,0 +1,6 @@
+build*/
+JUCE/
+renders/
+__pycache__/
+*.wav
+.vs/
