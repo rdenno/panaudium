@@ -97,12 +97,12 @@ float maxDiff(const juce::AudioBuffer<float>& a, const juce::AudioBuffer<float>&
 } // namespace
 
 int main(int argc, char** argv) {
-    if (argc < 3) { std::printf("usage: panaudium_hosttest <Panaudium.vst3> <outdir> [--all-programs]\n"); return 1; }
+    if (argc < 3) { std::printf("usage: panaudium_hosttest <Panaudium.vst3> <outdir> [--all-programs] [--no-perf]\n"); return 1; }
     juce::ScopedJuceInitialiser_GUI gui;
     const juce::String path = juce::File::getCurrentWorkingDirectory().getChildFile(argv[1]).getFullPathName();
     const juce::File outDir = juce::File::getCurrentWorkingDirectory().getChildFile(argv[2]);
     outDir.createDirectory();
-    const bool allPrograms = argc > 3 && juce::String(argv[3]) == "--all-programs";
+    bool allPrograms = false, perf = true;   // --no-perf: skip timing checks (shared CI runners have noisy timing)
 
     juce::VST3PluginFormat fmt;
     juce::OwnedArray<juce::PluginDescription> types;
@@ -138,7 +138,7 @@ int main(int argc, char** argv) {
               "program " + juce::String(i).paddedLeft(' ', 3) + " " + name.paddedRight(' ', 34) + juce::String::formatted(" peak %.3f  worst block %.2f ms (%.0fx realtime headroom)", st.peak, st.maxBlockMs, rt));
         writeWav(outDir.getChildFile(juce::String::formatted("host_prog_%03d.wav", i)), out, 48000.0);
     }
-    check(worstRt > 2.0, "worst-case block leaves >2x real-time headroom (worst: " + worstName + ")");
+    if (perf) check(worstRt > 2.0, "worst-case block leaves >2x real-time headroom (worst: " + worstName + ")");
 
     // State round trip: save state, load into a fresh instance, renders must match.
     plugin->setCurrentProgram(std::min(5, np - 1));

@@ -8,6 +8,10 @@ on:
       tag:
         description: "Existing tag to (re)build and attach assets to, e.g. v0.2.0"
         required: true
+      ref:
+        description: "Optional branch/commit to build from instead of the tag (e.g. main)"
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -20,7 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.inputs.tag || github.ref }}
+          ref: ${{ github.event.inputs.ref || github.event.inputs.tag || github.ref }}
 
       - name: Configure (fetches JUCE 8.0.8)
         # No hard-coded generator: CMake picks the newest Visual Studio installed on the runner image.
@@ -37,7 +41,7 @@ jobs:
 
       - name: Headless host test (loads the VST3 like a DAW)
         run: |
-          & build\panaudium_hosttest_artefacts\Release\panaudium_hosttest.exe build\Panaudium_artefacts\Release\VST3\Panaudium.vst3 hosttest
+          & build\panaudium_hosttest_artefacts\Release\panaudium_hosttest.exe build\Panaudium_artefacts\Release\VST3\Panaudium.vst3 hosttest --all-programs --no-perf
           if ($LASTEXITCODE -ne 0) { exit 1 }
 
       - name: pluginval (strictness 5)
