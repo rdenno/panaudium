@@ -1,5 +1,6 @@
 #pragma once
 #include <juce_audio_processors/juce_audio_processors.h>
+#include <mutex>
 #include "../dsp/Presets.h"
 #include "../dsp/Synth.h"
 
@@ -44,5 +45,6 @@ private:
     std::vector<std::atomic<float>*> raw;
     int currentProgram = 0;
     std::atomic<op::Synth*> liveSynth { nullptr };
+    std::mutex synthMutex;   // guards liveSynth for the non-real-time paths (timer, presets, state, prepareToPlay)
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PanaudiumProcessor)
 };

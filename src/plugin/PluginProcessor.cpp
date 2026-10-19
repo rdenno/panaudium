@@ -75,6 +75,9 @@ PanaudiumProcessor::PanaudiumProcessor()
 }
 
 void PanaudiumProcessor::preloadCurrentFx() {
+    // Timer path: never block; if prepareToPlay is swapping synths right now, try again next tick.
+    std::unique_lock<std::mutex> lock(synthMutex, std::try_to_lock);
+    if (!lock.owns_lock()) return;
     if (auto* s = liveSynth.load()) {
         float p[kNumParams];
         for (int i = 0; i < kNumParams; ++i) p[i] = raw[size_t(i)]->load();
@@ -91,8 +94,13 @@ void PanaudiumProcessor::prepareToPlay(double sampleRate, int) {
     for (int i = 0; i < kNumParams; ++i) fresh->setParam(i, raw[size_t(i)]->load());
     fresh->prepare(float(sampleRate));   // also preloads the FX units the current settings use
     { float p[kNumParams]; for (int i = 0; i < kNumParams; ++i) p[i] = raw[size_t(i)]->load(); fresh->primeFx(p); }
-    liveSynth = fresh.get();
-    synth = std::move(fresh);
+    std::unique_ptr<Synth> old;
+    {   // hosts may call prepareToPlay off the message thread: don't free a synth the timer/preset code is using
+        std::lock_guard<std::mutex> lock(synthMutex);
+        liveSynth = fresh.get();
+        old = std::move(synth);
+        synth = std::move(fresh);
+    }
 }
 
 void PanaudiumProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midi) {
@@ -120,7 +128,10 @@ void PanaudiumProcessor::setCurrentProgram(int index) {
     const auto& bank = factoryPresets();
     if (index < 0 || index >= int(bank.size())) return;
     currentProgram = index;
-    if (auto* s = liveSynth.load()) s->primeFx(bank[size_t(index)].v.data());   // builds IRs etc. off the audio thread
+    {   // builds IRs etc. off the audio thread
+        std::lock_guard<std::mutex> lock(synthMutex);
+        if (auto* s = liveSynth.load()) s->primeFx(bank[size_t(index)].v.data());
+    }
     const auto defs = buildParamDefs();
     for (int i = 0; i < kNumParams; ++i)
         if (auto* p = apvts.getParameter(defs[size_t(i)].id))
@@ -145,6 +156,7 @@ void PanaudiumProcessor::setStateInformation(const void* data, int sizeInBytes) 
         if (tree.hasType(apvts.state.getType())) {
             currentProgram = tree.getProperty("program", 0);
             apvts.replaceState(tree);
+            std::lock_guard<std::mutex> lock(synthMutex);
             if (auto* s = liveSynth.load()) { float p[kNumParams]; for (int i = 0; i < kNumParams; ++i) p[i] = raw[size_t(i)]->load(); s->primeFx(p); }
         }
     }
