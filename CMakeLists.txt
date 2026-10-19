@@ -3,6 +3,13 @@ project(Panaudium VERSION 0.2.1 LANGUAGES C CXX)
 set(CMAKE_CXX_STANDARD 17)
 # Link the MSVC runtime statically so the plugin loads on machines without the VC++ redistributable.
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+if(MSVC)
+  # Optimised Release builds still emit PDBs (symbols for crash dumps); /OPT keeps the shipped code identical.
+  string(APPEND CMAKE_CXX_FLAGS_RELEASE " /Zi")
+  foreach(kind SHARED MODULE EXE)
+    string(APPEND CMAKE_${kind}_LINKER_FLAGS_RELEASE " /DEBUG /OPT:REF /OPT:ICF")
+  endforeach()
+endif()
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Offline renderer: depends only on the header-only DSP core (src/dsp).

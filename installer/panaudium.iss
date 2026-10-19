@@ -38,7 +38,7 @@ Name: "vst3"; Description: "VST3 plugin (installed to Common Files\VST3)"; Types
 Name: "standalone"; Description: "Standalone application"; Types: full
 
 [Files]
-Source: "{#Artefacts}\VST3\Panaudium.vst3\*"; DestDir: "{commoncf64}\VST3\Panaudium.vst3"; Components: vst3; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#Artefacts}\VST3\Panaudium.vst3\*"; DestDir: "{commoncf64}\VST3\Panaudium.vst3"; Excludes: "*.pdb"; Components: vst3; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "{#Artefacts}\Standalone\Panaudium.exe"; DestDir: "{app}"; Components: standalone; Flags: ignoreversion
 Source: "..\LICENSE"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\README.md"; DestDir: "{app}"; Flags: ignoreversion isreadme

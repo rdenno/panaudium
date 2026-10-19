@@ -46,6 +46,11 @@ jobs:
 
       - name: pluginval (strictness 5)
         run: |
+          # Collect a full crash dump if the plugin crashes inside pluginval's child process.
+          New-Item -ItemType Directory -Force crashdumps | Out-Null
+          New-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows\Windows Error Reporting\LocalDumps' -Force | Out-Null
+          Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\Windows Error Reporting\LocalDumps' -Name DumpFolder -Value (Resolve-Path crashdumps).Path
+          Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\Windows Error Reporting\LocalDumps' -Name DumpType -Value 2 -Type DWord
           Invoke-WebRequest https://github.com/Tracktion/pluginval/releases/download/v1.0.4/pluginval_Windows.zip -OutFile pluginval.zip
           Expand-Archive pluginval.zip -DestinationPath pluginval
           # Out-of-process so a crash is reported rather than killing the step; generous timeout for slow runners.
@@ -59,7 +64,9 @@ jobs:
           name: test-logs
           path: |
             pluginval-logs/
-            hosttest/
+            crashdumps/
+            build/Panaudium_artefacts/Release/VST3/
+            build/**/*.pdb
           if-no-files-found: ignore
 
       - name: Package installer and zip
@@ -69,6 +76,7 @@ jobs:
           & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" /DAppVersion=$ver /DBuildDir=..\build installer\panaudium.iss
           New-Item -ItemType Directory -Force dist\zip | Out-Null
           Copy-Item -Recurse build\Panaudium_artefacts\Release\VST3\Panaudium.vst3 dist\zip\
+          Get-ChildItem dist\zip -Recurse -Filter *.pdb | Remove-Item
           Copy-Item build\Panaudium_artefacts\Release\Standalone\Panaudium.exe dist\zip\
           Copy-Item LICENSE, README.md dist\zip\
           Compress-Archive -Path dist\zip\* -DestinationPath "dist\Panaudium-$ver-Windows-x64.zip" -Force
